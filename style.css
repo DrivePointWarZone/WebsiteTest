@@ -18,16 +18,16 @@
     font-style: italic;
 }
 
-/* Базовые переменные и сброс стилей */
+/* Базовые переменные */
 :root {
-    --bg-dark: #121214;
-    --bg-card: rgba(30, 30, 35, 0.45);
-    --border-glass: rgba(255, 255, 255, 0.08);
+    --bg-dark: #0c0c0e;
+    --bg-card: rgba(22, 22, 26, 0.55);
+    --border-glass: rgba(255, 255, 255, 0.06);
     --text-white: #ffffff;
-    --text-gray: #a0a0aa;
-    --racing-red: #d32f2f; /* Сдержанный гоночный красный */
-    --racing-red-glow: rgba(211, 47, 47, 0.4);
-    --apple-hover: rgba(255, 255, 255, 0.1);
+    --text-gray: #9a9aae;
+    --racing-red: #e62222; /* Насыщенный, но не выжигающий гоночный красный */
+    --racing-red-glow: rgba(230, 34, 34, 0.25);
+    --apple-red-hover: rgba(230, 34, 34, 0.15); /* Красный оттенок для Apple-style ховера */
     --font-main: 'DDT', sans-serif;
 }
 
@@ -48,7 +48,7 @@ body {
     min-height: 100vh;
 }
 
-/* Эффект Liquid Glass на фоне (Размытые неоновые сферы) */
+/* Liquid Glass фон */
 .glass-bg-blobs {
     position: fixed;
     top: 0;
@@ -63,41 +63,41 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.25;
-    animation: floatAnimation 12s infinite ease-in-out;
+    filter: blur(160px);
+    opacity: 0.2;
+    animation: floatAnimation 14s infinite ease-in-out;
 }
 
 .blob-1 {
-    top: -10%;
-    right: 10%;
-    width: 500px;
-    height: 500px;
+    top: -5%;
+    right: 15%;
+    width: 550px;
+    height: 550px;
     background: var(--racing-red);
 }
 
 .blob-2 {
-    bottom: 10%;
+    bottom: 15%;
     left: -5%;
-    width: 600px;
-    height: 600px;
-    background: #4f46e5; /* Контрастный синеватый оттенок для глубины "стекла" */
-    animation-delay: -4s;
+    width: 650px;
+    height: 650px;
+    background: #3b82f6;
+    animation-delay: -5s;
 }
 
 @keyframes floatAnimation {
     0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-40px) scale(1.15); }
+    50% { transform: translateY(-30px) scale(1.1); }
 }
 
-/* Общий стиль стеклянных панелей */
+/* Стеклянные панели */
 .glass-panel {
     background: var(--bg-card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--border-glass);
-    border-radius: 24px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Шапка сайта */
@@ -107,7 +107,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 100;
-    padding: 20px 40px;
+    padding: 24px 40px;
 }
 
 .header-container {
@@ -118,25 +118,32 @@ body {
     align-items: center;
 }
 
-.logo img {
-    height: 40px;
+/* Умный адаптивный логотип (будет менять цвет, чтобы не сливаться) */
+.logo {
     display: block;
     transition: transform 0.3s ease;
+    mix-blend-mode: difference; /* Наложение разницы: инвертирует цвета на экстремальных фонах */
 }
 
-.logo:hover img {
-    transform: scale(1.05);
+.logo img {
+    height: 38px;
+    display: block;
+    filter: drop-shadow(0px 0px 1px rgba(255,255,255,0.3)); /* Легкий контур для защиты */
 }
 
-/* iOS Style менюшка */
+.logo:hover {
+    transform: scale(1.03);
+}
+
+/* iOS Style меню без фона */
 .ios-menu {
     display: flex;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 4px;
-    border-radius: 14px; /* Закругление в стиле последних iOS */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 5px;
+    border-radius: 14px;
 }
 
 .menu-item {
@@ -151,39 +158,45 @@ body {
     font-size: 16px;
     font-weight: 400;
     border-radius: 10px;
-    position: relative;
-    transition: background-color 0.25s ease, transform 0.15s ease;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Apple-style hover с появлением плашки прямо на кнопке */
+/* Apple-style hover теперь подсвечивается гоночным КРАСНЫМ */
 .menu-link:hover {
-    background-color: var(--apple-hover);
+    background-color: var(--apple-red-hover);
+    color: var(--racing-red);
 }
 
-.menu-link:active {
-    transform: scale(0.97);
-}
-
-/* Всплывающий iOS попап для Тарифов */
+/* iOS Выпадающий попап тарифов */
 .dropdown-popup {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    width: 240px;
-    background: rgba(25px, 25px, 30px, 0.85);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    width: 250px;
+    background: rgba(16, 16, 20, 0.92);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid var(--border-glass);
     border-radius: 18px;
     padding: 8px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.7);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
 }
 
-.has-popup:hover .dropdown-popup {
+/* Поведение десктоп-ховера для попапа */
+@media (min-width: 769px) {
+    .has-popup:hover .dropdown-popup {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Поведение по клику на мобилках (активируется через JS) */
+.menu-item.active-click .dropdown-popup {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
@@ -193,21 +206,21 @@ body {
     display: block;
     color: var(--text-white);
     text-decoration: none;
-    padding: 12px 16px;
+    padding: 12px 18px;
     font-size: 15px;
     border-radius: 12px;
     transition: background-color 0.2s ease;
 }
 
 .dropdown-popup a:hover {
-    background-color: var(--apple-hover);
+    background-color: rgba(255, 255, 255, 0.05);
     color: var(--racing-red);
 }
 
-/* Главный блок (Hero) */
+/* Главный блок Hero */
 .hero {
     max-width: 1400px;
-    margin: 140px auto 80px;
+    margin: 150px auto 80px;
     padding: 0 40px;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -220,12 +233,12 @@ body {
 }
 
 .hero-title {
-    font-size: 64px;
+    font-size: 68px;
     font-weight: 900;
     letter-spacing: -1px;
     margin-bottom: 24px;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #fff 0%, #a0a0aa 100%);
+    background: linear-gradient(135deg, #fff 30%, #8a8a93 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -237,7 +250,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* Кнопки */
 .hero-actions {
     display: flex;
     gap: 16px;
@@ -247,7 +259,7 @@ body {
     display: inline-block;
     text-decoration: none;
     padding: 16px 32px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     border-radius: 14px;
     transition: all 0.3s ease;
@@ -262,23 +274,22 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px var(--racing-red);
+    box-shadow: 0 6px 26px var(--racing-red);
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
     color: var(--text-white);
     border: 1px solid var(--border-glass);
 }
 
 .btn-secondary:hover {
-    background: var(--apple-hover);
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
 
-/* Место для картинок/видео с анимацией */
 .hero-image-placeholder {
-    height: 450px;
+    height: 460px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -286,8 +297,6 @@ body {
     position: relative;
     overflow: hidden;
     text-align: center;
-    padding: 20px;
-    border: 1px solid rgba(211, 47, 47, 0.2);
 }
 
 .pulse-glow {
@@ -295,14 +304,14 @@ body {
     width: 60%;
     height: 60%;
     background: var(--racing-red-glow);
-    filter: blur(60px);
+    filter: blur(70px);
     border-radius: 50%;
     animation: pulse 4s infinite alternate ease-in-out;
 }
 
 @keyframes pulse {
     0% { transform: scale(0.9); opacity: 0.3; }
-    100% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 0.6; }
 }
 
 /* Секция Тарифов */
@@ -313,57 +322,123 @@ body {
 }
 
 .section-title {
-    font-size: 36px;
+    font-size: 34px;
     font-weight: 900;
-    margin: 60px 0 30px;
+    margin: 70px 0 30px;
     text-transform: uppercase;
-    border-left: 5px solid var(--racing-red);
-    padding-left: 15px;
+    border-left: 4px solid var(--racing-red);
+    padding-left: 16px;
+    letter-spacing: 0.5px;
 }
 
+/* ВЕРСТКА ТАБЛИЦЫ ТАРИФОВ ИЗ МАКЕТА */
+.table-responsive {
+    overflow-x: auto; /* Позволяет таблице плавно скроллиться на мобилках */
+    width: 100%;
+    background: rgba(18, 18, 22, 0.45);
+}
+
+.tariffs-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    min-width: 800px; /* Гарантирует, что структура таблицы не сожмется */
+}
+
+.tariffs-table th, 
+.tariffs-table td {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Главный заголовок столбца */
+.th-main-title {
+    text-align: left;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--text-gray);
+    font-weight: 400;
+    width: 30%;
+}
+
+.th-group-days {
+    font-size: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-gray);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 15px;
+}
+
+.th-group-days.red-title {
+    color: var(--racing-red);
+}
+
+.tariffs-table th {
+    font-size: 14px;
+    color: #6a6a75;
+    font-weight: 400;
+}
+
+/* Красные заголовки подкатегорий времени */
+.tariffs-table th.red-cell-title {
+    color: rgba(230, 34, 34, 0.7);
+}
+
+/* Информация о самом тарифе */
+.tariff-info {
+    text-align: left;
+}
+
+.tariff-name {
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.tariff-sub {
+    display: block;
+    font-size: 13px;
+    color: var(--text-gray);
+}
+
+/* Ячейки с ценами */
+.price-cell {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--text-white);
+}
+
+/* Выделенная зона выходных дней (ПТ-ВС) в стиле присланного фото */
+.red-cell {
+    color: var(--racing-red);
+    background: rgba(230, 34, 34, 0.02);
+}
+
+.tariffs-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Сетки для комбо и раздельных инфо-блоков */
 .tariffs-grid {
     display: grid;
     gap: 30px;
 }
-
-.tariffs-grid.triple { grid-template-columns: repeat(3, 1fr); }
 .tariffs-grid.double { grid-template-columns: repeat(2, 1fr); }
 
-/* Карточка тарифа */
 .tariff-card {
     padding: 40px;
-    position: relative;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .tariff-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(211, 47, 47, 0.4);
-}
-
-/* Кастомный фокус на главный тариф (Заезд PRO) */
-.tariff-card.featured {
-    border: 1px solid var(--racing-red);
-    background: linear-gradient(180deg, rgba(211, 47, 47, 0.08) 0%, rgba(30, 30, 35, 0.45) 100%);
-}
-
-.card-tag {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 12px;
-    text-transform: uppercase;
-    background: rgba(255,255,255,0.1);
-    padding: 4px 12px;
-    border-radius: 20px;
-    color: var(--text-white);
-}
-
-.card-tag.red {
-    background: var(--racing-red);
-    font-weight: 900;
+    transform: translateY(-4px);
+    border-color: rgba(230, 34, 34, 0.3);
 }
 
 .tariff-card h3 {
@@ -375,7 +450,6 @@ body {
 .tariff-card .price {
     font-size: 32px;
     font-weight: 900;
-    color: var(--text-white);
     margin-bottom: 15px;
 }
 
@@ -390,7 +464,7 @@ body {
     line-height: 1.5;
 }
 
-/* Сетка инфо-блоков */
+/* Раздельные инфо-блоки */
 .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -398,28 +472,34 @@ body {
 }
 
 .info-block {
-    padding: 35px;
+    padding: 40px;
+    transition: transform 0.3s ease;
+}
+
+.info-block:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .info-block h3 {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 900;
-    margin-bottom: 12px;
-    color: var(--text-white);
+    margin-bottom: 14px;
 }
 
 .info-block p {
     color: var(--text-gray);
     line-height: 1.6;
+    font-size: 15px;
 }
 
-/* Простая анимация появления контента */
+/* Появление */
 .animate-fade-in {
     animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -427,47 +507,65 @@ body {
 @media (max-width: 1024px) {
     .hero {
         grid-template-columns: 1fr;
-        margin-top: 120px;
+        margin-top: 130px;
     }
-    .tariffs-grid.triple { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
     .header {
-        padding: 15px 20px;
+        padding: 16px 20px;
     }
+    
+    /* Сохраняем структуру: логотип слева, меню справа */
     .header-container {
-        flex-direction: column;
-        gap: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
     }
+
+    .logo img {
+        height: 32px;
+    }
+
     .hero {
         padding: 0 20px;
-        gap: 20px;
+        gap: 24px;
     }
+
     .hero-content {
-        padding: 30px;
+        padding: 32px 24px;
     }
+
     .hero-title {
-        font-size: 40px;
+        font-size: 44px;
     }
+
     .hero-image-placeholder {
-        height: 300px;
+        height: 280px;
     }
+
     .tariffs-section {
         padding: 0 20px;
     }
-    .tariffs-grid.triple, 
+
     .tariffs-grid.double,
     .info-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Карточки выстраиваются друг под другом */
     }
-    .tariff-card, .info-block {
-        padding: 25px;
-    }
-    /* Для мобилок отключаем ховер на попап и делаем структуру проще */
+
+    /* Мобильное поведение выпадающего iOS-попапа при клике */
     .dropdown-popup {
-        position: static;
-        transform: none;
-        width: 100%;
-        opacity: 1;
-        visibility: visible;
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0; /* Выравниваем по правому краю менюшки */
+        left: auto;
+        transform: translateY(10px);
+        width: 220px;
+    }
+    
+    .menu-item.active-click .dropdown-popup {
+        transform: translateY(0);
+    }
+}
