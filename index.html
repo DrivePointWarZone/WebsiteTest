@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIVE ZONE | Клуб автосимуляторов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Задний план для создания эффекта Liquid Glass (жидких светящихся пятен) -->
+    <div class="glass-bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo" id="toTopBtn">
+                <img src="svgs/Logo.svg" alt="DRIVE ZONE">
+            </a>
+            
+            <nav class="ios-menu">
+                <div class="menu-item has-popup">
+                    <a href="#tariffs" class="menu-link">Тарифы</a>
+                    <!-- Выпадающее меню (Попап) -->
+                    <div class="dropdown-popup">
+                        <a href="#autosims">Автосимуляторы</a>
+                        <a href="#combos">Комбо</a>
+                        <a href="#birthdays">Дни Рождения</a>
+                        <a href="#corporates">Корпоративы</a>
+                        <a href="#practices">Практики</a>
+                        <a href="#sections">Секции</a>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="#franchise" class="menu-link">Франшиза</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главный экран (Hero Section) -->
+        <section class="hero">
+            <div class="hero-content glass-panel animate-fade-in">
+                <h1 class="hero-title">DRIVE ZONE</h1>
+                <p class="hero-subtitle">
+                    Клуб профессиональных автосимуляторов с атмосферой настоящих гонок. 
+                    Одиночные заезды, турниры, яркие корпоративы и праздники с друзьями в пространстве, куда хочется возвращаться снова и снова.
+                </p>
+                <div class="hero-actions">
+                    <a href="#tariffs" class="btn btn-primary">Забронировать заезд</a>
+                    <a href="#autosims" class="btn btn-secondary">Подробнее</a>
+                </div>
+            </div>
+            <div class="hero-image-placeholder glass-panel">
+                <div class="pulse-glow"></div>
+                <span>[ Место для крутого промо-видео или фото гонки ]</span>
+            </div>
+        </section>
+
+        <!-- Блок Тарифов -->
+        <section id="tariffs" class="tariffs-section">
+            <h2 class="section-title" id="autosims">Автосимуляторы</h2>
+            <div class="tariffs-grid triple">
+                <div class="tariff-card glass-panel">
+                    <div class="card-tag">Популярно</div>
+                    <h3>Тест-Драйв</h3>
+                    <p class="price">1 500 ₽ <span>/ 30 мин</span></p>
+                    <p class="desc">Идеально для первого знакомства со спортивной телеметрией и физикой трека.</p>
+                </div>
+                <div class="tariff-card glass-panel featured">
+                    <div class="card-tag red">Выбор гонщиков</div>
+                    <h3>Заезд PRO</h3>
+                    <p class="price">2 800 ₽ <span>/ 60 мин</span></p>
+                    <p class="desc">Полноценная сессия: квалификация, настройка болида и полноценная гонка.</p>
+                </div>
+                <div class="tariff-card glass-panel">
+                    <h3>Grand Prix</h3>
+                    <p class="price">5 000 ₽ <span>/ 120 мин</span></p>
+                    <p class="desc">Максимальное погружение. Разбор ошибок с телеметрии, выносливый марафон.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" id="combos">Комбо-наборы</h2>
+            <div class="tariffs-grid double">
+                <div class="tariff-card glass-panel combo-card">
+                    <h3>Комбо «Дуэль»</h3>
+                    <p class="price">4 500 ₽ <span>/час</span></p>
+                    <p class="desc">Два синхронизированных симулятора для заезда один на один с другом.</p>
+                </div>
+                <div class="tariff-card glass-panel combo-card">
+                    <h3>Комбо «Тройной форсаж»</h3>
+                    <p class="price">6 500 ₽ <span>/час</span></p>
+                    <p class="desc">Три симулятора на одной трассе. Устройте полноценный мини-чемпионат.</p>
+                </div>
+            </div>
+
+            <!-- Информационные блоки -->
+            <h2 class="section-title">Мероприятия и обучение</h2>
+            <div class="info-grid">
+                <div class="info-block glass-panel" id="birthdays">
+                    <h3>Дни Рождения</h3>
+                    <p>Аренда всего клуба, праздничная атмосфера, мини-турнир с награждением для именинника и его друзей. Эмоции, которые запомнятся надолго.</p>
+                </div>
+                <div class="info-block glass-panel" id="corporates">
+                    <h3>Корпоративы</h3>
+                    <p>Тимбилдинг на максимальной скорости. Командные гонки на выносливость, фуршетная зона и профессиональный ведущий-комментатор.</p>
+                </div>
+                <div class="info-block glass-panel" id="practices">
+                    <h3>Практики</h3>
+                    <p>Индивидуальные тренировки с разбором траекторий, точек торможения и поведения машины на треке для улучшения времени круга.</p>
+                </div>
+                <div class="info-block glass-panel" id="sections">
+                    <h3>Секции</h3>
+                    <p>Регулярная гоночная академия для детей и взрослых. Погружение в симрейсинг, участие в виртуальных и реальных чемпионатах.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Скрипт для плавного скролла вверх при клике на логотип -->
+    <script>
+        document.getElementById('toTopBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
