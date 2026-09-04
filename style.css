@@ -1,4 +1,4 @@
-/* 1. ШРИФТЫ */
+/* 1. ПОДКЛЮЧЕНИЕ ШРИФТОВ */
 @font-face {
     font-family: 'DDT';
     src: url('fonts/DDTEl-Italic.woff2') format('woff2');
@@ -18,18 +18,20 @@
     font-style: italic;
 }
 
+/* 2. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ */
 :root {
-    --bg-dark: #09090b;
+    --bg-dark: #0a0a0c;
     --bg-card: rgba(18, 18, 22, 0.6);
     --border-glass: rgba(255, 255, 255, 0.05);
     --text-white: #ffffff;
     --text-gray: #9292a4;
-    --racing-red: #e62222;
+    --racing-red: #e62222; /* Гоночный красный */
     --racing-red-glow: rgba(230, 34, 34, 0.25);
-    --apple-red-hover: rgba(230, 34, 34, 0.14);
+    --apple-red-hover: rgba(230, 34, 34, 0.15); /* Красный Apple-ховер */
     --font-main: 'DDT', sans-serif;
 }
 
+/* 3. СБРОС СТИЛЕЙ И ЗАЩИТА ОТ БОКОВОГО СКРОЛЛА */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -41,14 +43,20 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-white);
     font-family: var(--font-main);
-    overflow-x: hidden;
+    font-weight: 400;
+    overflow-x: hidden; /* Строгий запрет горизонтального скролла для всего сайта */
     width: 100%;
     position: relative;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
 }
 
-main { width: 100%; overflow: hidden; }
+main {
+    width: 100%;
+    overflow: hidden;
+}
 
-/* КРАСНЫЙ LIQUID GLASS ФОН */
+/* 4. LIQUID GLASS ФОН (БЕЗ СИНЕГО!) */
 .glass-bg-blobs {
     position: fixed;
     top: 0;
@@ -57,99 +65,171 @@ main { width: 100%; overflow: hidden; }
     height: 100%;
     z-index: -1;
     overflow: hidden;
-}
-.blob-1 {
-    position: absolute;
-    top: 20%;
-    right: 15%;
-    width: 550px;
-    height: 550px;
-    background: var(--racing-red);
-    border-radius: 50%;
-    filter: blur(160px);
-    opacity: 0.16;
+    pointer-events: none;
 }
 
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(160px);
+    opacity: 0.15;
+    animation: floatAnimation 14s infinite ease-in-out;
+}
+
+.blob-1 {
+    top: 20%;
+    right: 15%;
+    width: 600px;
+    height: 600px;
+    background: var(--racing-red);
+}
+
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-40px) scale(1.1); }
+}
+
+/* 5. ОБЩИЙ СТИЛЬ СТЕКЛЯННЫХ ПАНЕЛЕЙ */
 .glass-panel {
     background: var(--bg-card);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--border-glass);
     border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
 }
 
-/* ШАПКА И УМНЫЙ ЛОГОТИП */
+/* 6. УМНАЯ АДАПТИВНАЯ ШАПКА */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
-    padding: 24px 40px;
+    padding: 40px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Когда пользователь доскроллил до тарифов, шапка плавно сжимается */
+.header.scrolled {
+    padding: 16px 40px;
+    background: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-glass);
+}
+
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.logo {
-    display: block;
-    mix-blend-mode: difference;
-    transform-origin: left center;
-}
-.logo img {
-    height: 38px;
-    display: block;
-    filter: invert(21%) sepia(93%) saturate(6935%) hue-rotate(356deg) brightness(94%) contrast(117%);
+    position: relative;
 }
 
+/* 7. ЛОГИКА ТРАНСФОРМАЦИИ И ПЕРЕКРАСКИ ЛОГОТИПА */
+.logo {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50vh; /* Изначально огромный и строго по центру экрана */
+    transform: translate(-50%, -50%) scale(4.5); 
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    mix-blend-mode: difference; /* Защита от сливания с фоном */
+    pointer-events: none; /* Пока большой, кликнуть нельзя, чтобы не мешал */
+}
+
+/* Эффект фильтра: превращает твой черный вектор в сочный красный */
+.logo img {
+    height: 34px;
+    display: block;
+    filter: invert(21%) sepia(93%) saturate(6935%) hue-rotate(356deg) brightness(94%) contrast(117%) drop-shadow(0 0 1px rgba(255,255,255,0.2));
+}
+
+/* Когда доскроллили: логотип плавно летит в левый верхний угол и становится кнопкой */
+.header.scrolled .logo {
+    position: relative;
+    left: 0;
+    top: auto;
+    transform: translate(0, 0) scale(1);
+    pointer-events: auto;
+}
+
+.logo:hover {
+    transform: scale(1.03);
+}
+
+.header.scrolled .logo:hover {
+    transform: scale(1.05);
+}
+
+/* 8. IOS STYLE МЕНЮ БЕЗ ФОНА */
 .ios-menu {
     display: flex;
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 4px;
     border-radius: 14px;
+    margin-left: auto; /* Прижимает меню к правому краю */
 }
-.menu-item { position: relative; }
+
+.menu-item {
+    position: relative;
+}
+
 .menu-link {
     display: block;
     color: var(--text-white);
     text-decoration: none;
     padding: 10px 24px;
     font-size: 16px;
+    font-weight: 400;
     border-radius: 10px;
-    transition: background-color 0.25s, color 0.25s;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
+
+/* Apple-style hover с появлением красного прямоугольника */
 .menu-link:hover {
     background-color: var(--apple-red-hover);
     color: var(--racing-red);
 }
 
+/* iOS Выпадающий попап */
 .dropdown-popup {
     position: absolute;
     top: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(10px);
     width: 240px;
-    background: rgba(14, 14, 18, 0.95);
+    background: rgba(12, 12, 15, 0.95);
     backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid var(--border-glass);
     border-radius: 18px;
     padding: 8px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.8);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
 }
-.has-popup:hover .dropdown-popup,
+
+@media (min-width: 769px) {
+    .has-popup:hover .dropdown-popup {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 .menu-item.active-click .dropdown-popup {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
 .dropdown-popup a {
     display: block;
     color: var(--text-white);
@@ -157,55 +237,118 @@ main { width: 100%; overflow: hidden; }
     padding: 12px 18px;
     font-size: 15px;
     border-radius: 12px;
+    transition: background-color 0.2s ease;
 }
-.dropdown-popup a:hover { color: var(--racing-red); background: rgba(255,255,255,0.03); }
 
-/* HERO */
-.hero {
-    max-width: 1400px;
-    margin: 160px auto 60px;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-    align-items: center;
+.dropdown-popup a:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--racing-red);
 }
-.hero-content { padding: 60px; }
+/* 9. МОНУМЕНТАЛЬНЫЙ ГЛАВНЫЙ ЭКРАН (100vh) */
+.hero {
+    width: 100%;
+    height: 100vh; /* Занимает ровно всю высоту экрана смартфона или ПК */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 60px;
+}
+
 .hero-title {
-    font-size: 72px;
+    font-size: 80px;
     font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #fff 30%, #888896 100%);
+    background: linear-gradient(135deg, #ffffff 40%, #7d7d8c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 24px;
 }
-.hero-subtitle { font-size: 18px; line-height: 1.6; color: var(--text-gray); margin-bottom: 40px; }
-.hero-actions { display: flex; gap: 16px; }
+
+.hero-subtitle {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--text-gray);
+    margin-bottom: 40px;
+}
+
+/* 10. КНОПКИ С АНИМАЦИЕЙ КЛИКА */
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+
 .btn {
     display: inline-block;
     text-decoration: none;
-    padding: 16px 32px;
+    padding: 18px 36px;
     font-size: 15px;
     font-weight: 900;
     border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    white-space: nowrap;
 }
-.btn-primary { background: var(--racing-red); color: #fff; box-shadow: 0 4px 20px var(--racing-red-glow); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 26px var(--racing-red); }
-.btn-secondary { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid var(--border-glass); }
-.btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
 
-.hero-image-placeholder { height: 460px; display: flex; align-items: center; justify-content: center; color: var(--text-gray); position: relative; }
-.pulse-glow { position: absolute; width: 50%; height: 50%; background: var(--racing-red-glow); filter: blur(70px); border-radius: 50%; animation: pulse 4s infinite alternate ease-in-out; }
-@keyframes pulse { 0% { transform: scale(0.9); opacity: 0.3; } 100% { transform: scale(1.1); opacity: 0.6; } }
+.btn-primary {
+    background: var(--racing-red);
+    color: var(--text-white);
+    box-shadow: 0 4px 20px var(--racing-red-glow);
+}
 
-/* СЕКЦИЯ ТАРИФОВ И iOS СВИЧЕР */
-.tariffs-section { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-.section-title { font-size: 36px; font-weight: 900; margin: 80px 0 32px; text-transform: uppercase; border-left: 5px solid var(--racing-red); padding-left: 18px; }
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 26px var(--racing-red);
+}
 
-.days-switcher-container { display: flex; justify-content: center; margin-bottom: 45px; }
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-white);
+    border: 1px solid var(--border-glass);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+/* 11. СЕКЦИЯ СТОИМОСТИ (ОБЩЕЕ) */
+.tariffs-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 38px;
+    font-weight: 900;
+    margin: 100px 0 32px;
+    text-transform: uppercase;
+    border-left: 5px solid var(--racing-red);
+    padding-left: 18px;
+    letter-spacing: 0.5px;
+}
+
+/* 12. АНИМИРОВАННЫЙ ТУМБЛЕР ДНЕЙ НЕДЕЛИ */
+.days-switcher-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
 .days-switcher {
     position: relative;
     display: flex;
@@ -213,187 +356,465 @@ main { width: 100%; overflow: hidden; }
     border: 1px solid var(--border-glass);
     padding: 4px;
     border-radius: 14px;
-    width: 280px;
+    width: 320px;
 }
-.switcher-bg-slider {
+
+/* Красная подложка, которая плавно скользит между кнопками */
+.switcher-bg {
     position: absolute;
     top: 4px;
     left: 4px;
-    width: calc(50% - 4px);
+    width: calc(50% - 2px);
     height: calc(100% - 8px);
     background: var(--racing-red);
     border-radius: 10px;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1;
     box-shadow: 0 4px 15px var(--racing-red-glow);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
 }
+
 .switcher-btn {
     position: relative;
     flex: 1;
-    background: none;
+    background: transparent;
     border: none;
     color: var(--text-gray);
     padding: 12px 0;
-    font-size: 15px;
+    font-family: var(--font-main);
+    font-size: 16px;
     font-weight: 900;
     cursor: pointer;
     z-index: 2;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
-.switcher-btn.active { color: #fff; }
 
-/* 3D КАРУСЕЛЬ ЦЕН (COVERFLOW) */
-.carousel-container {
+.switcher-btn.active {
+    color: var(--text-white);
+}
+
+/* 13. ПЛАНКА С ТАРИФАМИ ЦЕН */
+.prices-wrapper {
+    width: 100%;
+    padding: 10px 40px;
+}
+
+.price-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.price-row-item:last-child {
+    border-bottom: none;
+}
+
+.price-type h3 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.price-type span {
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+.price-slots {
+    display: flex;
+    gap: 48px;
+}
+
+.p-box {
+    text-align: center;
+}
+
+.p-box span {
+    display: block;
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.cost {
+    font-size: 28px;
+    font-weight: 900;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* Плавный мигающий эффект при клике на переключатель */
+.cost.price-changing {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* 14. СЕТКА КОМБО-НАБОРОВ */
+.combos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.combo-card {
+    padding: 40px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.combo-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(230, 34, 34, 0.3);
+}
+
+.combo-card h3 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.combo-price {
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    color: var(--text-white);
+}
+
+.combo-price span {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-gray);
+}
+
+.combo-desc {
+    color: var(--text-gray);
+    line-height: 1.6;
+    font-size: 15px;
+}
+/* 15. СЕКЦИЯ КОНФИГУРАЦИЙ ЖЕЛЕЗА (СТРОГО ПО ТВОЕМУ ФОТО) */
+.configs-section {
+    max-width: 1400px;
+    margin: 80px auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.top-badge {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--racing-red);
+    font-weight: 900;
+    margin-bottom: 12px;
     position: relative;
-    max-width: 1050px;
-    margin: 0 auto 80px;
-    height: 580px;
+    padding-left: 25px;
+}
+
+.top-badge::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 2px;
+    background: var(--racing-red);
+}
+
+.section-main-title {
+    font-size: 48px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.section-main-subtitle {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin-bottom: 48px;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* Сетка карточек железа для ПК */
+.configs-scroll-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.config-card {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.config-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Кастомная красная рамка для ВИП тарифа как на фото */
+.config-card.featured-config {
+    border: 1px solid var(--racing-red);
+    box-shadow: 0 12px 40px var(--racing-red-glow);
+}
+
+.config-image-box {
+    width: 100%;
+    height: 180px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 1000px;
-}
-.carousel-track {
     position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-}
-.carousel-item {
-    position: absolute;
-    top: 0;
-    left: calc(50% - 190px);
-    width: 380px;
-    height: 550px;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
 }
 
-/* Логика картинок и рамок-заглушек */
-.sim-image-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    background: rgba(255,255,255,0.02);
-    border-bottom: 1px solid var(--border-glass);
-}
-.sim-img {
+.config-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.sim-img-placeholder {
+
+.img-placeholder-stub {
+    font-size: 13px;
+    color: var(--text-gray);
     position: absolute;
-    top: 0;
-    left: 0;
+}
+
+.config-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.config-header h3 {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.config-price-tag {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.config-price-tag span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-gray);
+}
+
+.config-sub-label {
+    font-size: 13px;
+    color: var(--racing-red);
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+/* Список характеристик железа из макета */
+.specs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.specs-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding-bottom: 8px;
+}
+
+.specs-list li:last-child {
+    border-bottom: none;
+}
+
+.spec-name {
+    color: #585864;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.spec-value {
+    color: var(--text-white);
+    font-weight: 400;
+    text-align: right;
+}
+
+/* 16. БОЛЬШИЕ ЭКРАНЫ ДЛЯ МЕРОПРИЯТИЙ (ДРУГ НАД ДРУГОМ) */
+.large-screen-block {
     width: 100%;
-    height: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
+    margin: 120px auto;
+    padding: 0 40px;
+}
+
+.large-block-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.large-block-content {
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.large-block-content h2 {
+    font-size: 46px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.large-block-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-gray);
+    margin-bottom: 40px;
+}
+
+.large-block-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-gray);
-    font-size: 14px;
-    border: 2px dashed rgba(230, 34, 34, 0.2);
 }
-/* Если картинка загрузилась, прячем заглушку */
-.sim-img:not(.img-broken) + .sim-img-placeholder { display: none; }
 
-.sim-content { padding: 30px; display: flex; flex-direction: column; flex: 1; }
-.sim-content h3 { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
-.sim-sub { font-size: 13px; color: var(--text-gray); margin-bottom: 20px; }
-
-.price-display {
-    font-size: 38px;
-    font-weight: 900;
-    color: var(--text-white);
-    margin-bottom: 15px;
-    transition: opacity 0.15s, transform 0.15s;
-}
-.price-display.changing { opacity: 0; transform: translateY(-5px); }
-
-.time-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
-.time-tab {
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    color: var(--text-gray);
-}
-.time-tab.active { background: rgba(230, 34, 34, 0.15); color: var(--racing-red); border: 1px solid rgba(230, 34, 34, 0.3); }
-.sim-desc { font-size: 14px; color: var(--text-gray); line-height: 1.5; }
-
-.carousel-nav {
+.large-block-image img {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border-glass);
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 20px;
-    transition: background 0.3s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-.carousel-nav:hover { background: var(--racing-red); }
-.carousel-nav.prev { left: -20px; }
-.carousel-nav.next { right: -20px; }
 
-/* КОМБО НАБОРЫ */
-.tariffs-grid { display: grid; gap: 30px; }
-.tariffs-grid.double { grid-template-columns: repeat(2, 1fr); }
-.tariff-card { padding: 40px; display: flex; flex-direction: column; transition: transform 0.3s; }
-.tariff-card:hover { transform: translateY(-4px); border-color: rgba(230,34,34,0.3); }
-.tariff-card h3 { font-size: 28px; font-weight: 900; margin-bottom: 16px; }
-.tariff-card .price { font-size: 34px; font-weight: 900; margin-bottom: 16px; }
-.tariff-card .price span { font-size: 16px; font-weight: 400; color: var(--text-gray); }
-.tariff-card .desc { color: var(--text-gray); line-height: 1.5; font-size: 15px; }
+/* Шахматный порядок переворота блоков на ПК */
+.large-screen-block.reverse .large-block-container {
+    grid-template-columns: 0.9fr 1.1fr;
+}
+.large-screen-block.reverse .large-block-container .large-block-content { order: 2; }
+.large-screen-block.reverse .large-block-container .large-block-image { order: 1; }
 
-/* БЛОКИ МЕРОПРИЯТИЙ (БОЛЬШИЕ) */
-.large-info-section { width: 100%; max-width: 1400px; margin: 100px auto; padding: 0 40px; }
-.large-info-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: stretch; }
-.large-info-content { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-.block-main-title { font-size: 42px; font-weight: 900; text-transform: uppercase; margin-bottom: 24px; }
-.block-main-desc { font-size: 16px; line-height: 1.7; color: var(--text-gray); margin-bottom: 40px; }
-.large-info-image { position: relative; overflow: hidden; min-height: 380px; display: flex; align-items: center; justify-content: center; }
-.large-info-image img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-.large-info-section.reverse .large-info-container { grid-template-columns: 0.9fr 1.1fr; }
-.large-info-section.reverse .large-info-container .large-info-content { order: 2; }
-.large-info-section.reverse .large-info-container .large-info-image { order: 1; }
-.image-stub { color: var(--text-gray); font-size: 14px; z-index: 1; }
+.image-stub {
+    font-size: 14px;
+    color: var(--text-gray);
+}
 
-/* АДАПТИВНОСТЬ */
+
+/* ================= ПОЛНЫЙ МОБИЛЬНЫЙ АДАПТИВ (БЕЗ БАГОВ) ================= */
+
 @media (max-width: 1100px) {
-    .hero { grid-template-columns: 1fr; margin-top: 140px; }
-    .large-info-container, .large-info-section.reverse .large-info-container { grid-template-columns: 1fr; }
-    .large-info-section.reverse .large-info-container .large-info-content { order: 1; }
-    .large-info-section.reverse .large-info-container .large-info-image { order: 2; }
+    .logo {
+        transform: translate(-50%, -50%) scale(3.5);
+    }
+    .hero-title { font-size: 64px; }
+    .configs-scroll-container { grid-template-columns: repeat(2, 1fr); }
+    .large-block-container,
+    .large-screen-block.reverse .large-block-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .large-screen-block.reverse .large-block-container .large-block-content { order: 1; }
+    .large-screen-block.reverse .large-block-container .large-block-image { order: 2; }
+    .large-screen-block { min-height: auto; margin: 60px auto; }
 }
 
 @media (max-width: 768px) {
-    body, html { overflow-x: hidden; width: 100%; }
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
     .header { padding: 16px 20px; }
-    .header-container { display: flex; justify-content: space-between; width: 100%; }
-    .logo img { height: 32px; }
-    .dropdown-popup { position: absolute; right: 0; left: auto; width: 220px; }
+    .header-container { display: flex; flex-direction: row; justify-content: space-between; width: 100%; }
     
-    .hero { padding: 0 20px; }
-    .hero-title { font-size: 46px; }
-    .hero-actions { flex-direction: column; }
-    
-    /* Схлопываем 3D карусель в вертикальный список на мобилке ради красоты и ширины */
-    .carousel-container { height: auto; display: block; margin-bottom: 40px; }
-    .carousel-track { display: flex; flex-direction: column; gap: 24px; transform: none !important; }
-    .carousel-item { position: static; width: 100%; height: auto; opacity: 1 !important; transform: none !important; }
-    .carousel-nav { display: none; }
-    
+    /* Мобильный огромный логотип на первом экране */
+    .logo {
+        top: 45vh;
+        transform: translate(-50%, -50%) scale(2.8);
+    }
+
+    .header.scrolled .logo {
+        transform: translate(0, 0) scale(1);
+    }
+
+    .logo img { height: 28px; }
+    .menu-link { padding: 10px 16px; font-size: 14px; }
+
+    .dropdown-popup {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        left: auto;
+        width: 200px;
+    }
+
+    .hero { padding: 0 20px; justify-content: center; }
+    .hero-content { padding: 40px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .hero-title { font-size: 48px; margin-top: 100px; }
+    .hero-subtitle { font-size: 16px; }
+    .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
+    .btn { width: 100%; text-align: center; }
+
+    /* Мобильный вид цен (столбиком) */
     .tariffs-section { padding: 0 20px; }
-    .tariffs-grid.double { grid-template-columns: 1fr; }
-    .large-info-section { padding: 0 20px; }
-    .large-info-content { padding: 32px 24px; text-align: center; align-items: center; }
-    .block-main-title { font-size: 32px; }
+    .prices-wrapper { padding: 10px 20px; }
+    .price-row-item { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .price-slots { width: 100%; justify-content: space-between; gap: 10px; }
+    .cost { font-size: 22px; }
+
+    /* МОБИЛЬНАЯ ЛЕНТА ДЛЯ КАРТОЧЕК ЖЕЛЕЗА (НАТИВНЫЙ ТАЧ-СКРОЛЛ) */
+    .configs-section { padding: 0 0 0 20px; /* Отступ слева, чтобы карточка красиво начиналась */ }
+    .section-main-title { font-size: 32px; }
+    
+    .configs-scroll-container {
+        display: flex;
+        overflow-x: auto; /* Включаем боковой скролл ТОЛЬКО для этой ленты */
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* Идеально плавный скролл на iOS */
+        gap: 20px;
+        padding-right: 20px; /* Чтобы последняя карточка не упиралась в край дисплея */
+        width: 100%;
+    }
+
+    .config-card {
+        flex: 0 0 290px; /* Карточки фиксируются по ширине и не сжимаются */
+        scroll-snap-align: start;
+        padding: 24px;
+    }
+    
+    .config-image-box { height: 150px; }
+
+    /* Мероприятия на мобильном */
+    .large-screen-block { padding: 0 20px; margin: 40px auto; }
+    .large-block-content { padding: 32px 20px; text-align: center; align-items: center; }
+    .large-block-content h2 { font-size: 32px; }
+    .large-block-image { min-height: 280px; }
 }
