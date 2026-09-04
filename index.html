@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIVE ZONE | Клуб автосимуляторов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Задний план Liquid Glass (Только красный) -->
+    <div class="glass-bg-blobs">
+        <div class="blob blob-1"></div>
+    </div>
+
+    <!-- Шапка сайта -->
+    <header class="header" id="siteHeader">
+        <div class="header-container">
+            <a href="#" class="logo" id="toTopBtn">
+                <img src="svgs/Logo.svg" alt="DRIVE ZONE">
+            </a>
+            
+            <nav class="ios-menu">
+                <div class="menu-item has-popup" id="tariffsMenuItem">
+                    <a href="#tariffs" class="menu-link" id="tariffsToggle">Тарифы</a>
+                    <div class="dropdown-popup">
+                        <a href="#autosims">Автосимуляторы</a>
+                        <a href="#combos">Комбо</a>
+                        <a href="#birthdays">Дни Рождения</a>
+                        <a href="#corporates">Корпоративы</a>
+                        <a href="#practices">Практики</a>
+                        <a href="#sections">Секции</a>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="#franchise" class="menu-link">Франшиза</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главный экран -->
+        <section class="hero">
+            <div class="hero-content glass-panel animate-fade-in">
+                <h1 class="hero-title">DRIVE ZONE</h1>
+                <p class="hero-subtitle">
+                    Клуб профессиональных автосимуляторов с атмосферой настоящих гонок. 
+                    Одиночные заезды, турниры, яркие корпоративы и праздники с друзьями в пространстве, куда хочется возвращаться снова и снова.
+                </p>
+                <div class="hero-actions">
+                    <a href="#tariffs" class="btn btn-primary">Забронировать заезд</a>
+                    <a href="#autosims" class="btn btn-secondary">Подробнее</a>
+                </div>
+            </div>
+            <div class="hero-image-placeholder glass-panel">
+                <div class="pulse-glow"></div>
+                <span>[ Место для промо-видео или фото гонки ]</span>
+            </div>
+        </section>
+
+        <!-- Секция Тарифов -->
+        <section id="tariffs" class="tariffs-section">
+            <h2 class="section-title" id="autosims">Автосимуляторы</h2>
+            
+            <!-- iOS-style переключатель дней недели -->
+            <div class="days-switcher-container">
+                <div class="days-switcher">
+                    <div class="switcher-bg-slider" id="switcherSlider"></div>
+                    <button class="switcher-btn active" id="btnWeekdays">ПН-ЧТ</button>
+                    <button class="switcher-btn" id="btnWeekend">ПТ-ВС</button>
+                </div>
+            </div>
+
+            <!-- Цикличная 3D Карусель Автосимуляторов -->
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="carouselPrev">&larr;</button>
+                
+                <div class="carousel-track" id="carouselTrack">
+                    
+                    <!-- Карточка 1: Спорткар -->
+                    <div class="carousel-item glass-panel" data-index="0">
+                        <div class="sim-image-container">
+                            <img src="images/simulators/sportcar.jpg" alt="Спорткар" class="sim-img" onerror="this.classList.add('img-broken');">
+                            <div class="sim-img-placeholder"><span>[ Фото: Спорткар ]</span></div>
+                        </div>
+                        <div class="sim-content">
+                            <h3>СПОРТКАР</h3>
+                            <p class="sim-sub">Болид с открытыми колесами</p>
+                            <div class="price-display animate-price" data-weekdays="590 ₽" data-weekend="890 ₽">590 ₽</div>
+                            <div class="time-tabs">
+                                <span class="time-tab active" data-time="30">30 мин</span>
+                                <span class="time-tab" data-time="60">60 мин</span>
+                                <span class="time-tab" data-time="120">120 мин</span>
+                            </div>
+                            <p class="sim-desc">Почувствуйте чистую скорость формульных серий на лазерных сканах мировых трасс.</p>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 2: Классика (По умолчанию активна) -->
+                    <div class="carousel-item glass-panel active" data-index="1">
+                        <div class="sim-image-container">
+                            <img src="images/simulators/classic.jpg" alt="Классика" class="sim-img" onerror="this.classList.add('img-broken');">
+                            <div class="sim-img-placeholder"><span>[ Фото: Классика ]</span></div>
+                        </div>
+                        <div class="sim-content">
+                            <h3>КЛАССИКА</h3>
+                            <p class="sim-sub">База для старта · Moza R5</p>
+                            <div class="price-display animate-price" data-weekdays="890 ₽" data-weekend="1190 ₽">890 ₽</div>
+                            <div class="time-tabs">
+                                <span class="time-tab" data-time="30">30 мин</span>
+                                <span class="time-tab active" data-time="60">60 мин</span>
+                                <span class="time-tab" data-time="120">120 мин</span>
+                            </div>
+                            <p class="sim-desc">Идеальный баланс обратной связи и реализма для пилотов любого уровня подготовки.</p>
+                        </div>
+                    </div>
+
+                    <!-- Карточка 3: ВИП -->
+                    <div class="carousel-item glass-panel" data-index="2">
+                        <div class="sim-image-container">
+                            <img src="images/simulators/vip.jpg" alt="ВИП" class="sim-img" onerror="this.classList.add('img-broken');">
+                            <div class="sim-img-placeholder"><span>[ Фото: ВИП ]</span></div>
+                        </div>
+                        <div class="sim-content">
+                            <h3>ВИП</h3>
+                            <p class="sim-sub">Подвижная платформа · Moza R9</p>
+                            <div class="price-display animate-price" data-weekdays="1490 ₽" data-weekend="1990 ₽">1490 ₽</div>
+                            <div class="time-tabs">
+                                <span class="time-tab" data-time="30">30 мин</span>
+                                <span class="time-tab" data-time="60">60 мин</span>
+                                <span class="time-tab active" data-time="120">120 мин</span>
+                            </div>
+                            <p class="sim-desc">Динамическая система Motion перегрузок. Ощутите каждый сантиметр поребрика телом.</p>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <button class="carousel-nav next" id="carouselNext">&rarr;</button>
+            </div>
+
+            <h2 class="section-title" id="combos">Комбо-наборы</h2>
+            <div class="tariffs-grid double">
+                <div class="tariff-card glass-panel combo-card">
+                    <h3>Комбо «Дуэль»</h3>
+                    <p class="price">4 500 ₽ <span>/час</span></p>
+                    <p class="desc">Два синхронизированных симулятора для заезда один на один с другом.</p>
+                </div>
+                <div class="tariff-card glass-panel combo-card">
+                    <h3>Комбо «Тройной форсаж»</h3>
+                    <p class="price">6 500 ₽ <span>/час</span></p>
+                    <p class="desc">Три симулятора на одной трассе. Устройте полноценный мини-чемпионат.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блоки Мероприятий -->
+        <section id="birthdays" class="large-info-section">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Дни Рождения</h2>
+                    <p class="block-main-desc">
+                        Аренда всего клуба, праздничная атмосфера, мини-турнир с награждением для именинника и его друзей. 
+                        Мы берем на себя всю организацию: от настройки симуляторов до ведения турнирной таблицы. 
+                        Эмоции и адреналин, которые запомнятся гостям надолго.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Узнать условия</a>
+                </div>
+                <div class="large-info-image glass-panel">
+                    <img src="images/birthday.jpg" alt="Дни Рождения" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: День Рождения в клубе ]</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="corporates" class="large-info-section reverse">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Корпоративы</h2>
+                    <p class="block-main-desc">
+                        Тимбилдинг на максимальной скорости. Командные гонки на выносливость, полноценная фуршетная зона, 
+                        профессиональный ведущий-комментатор и трансляция заездов на больших экранах.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Оставить заявку</a>
+                </div>
+                <div class="large-info-image glass-panel">
+                    <img src="images/corporate.jpg" alt="Корпоративы" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Гоночный Тимбилдинг ]</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="practices" class="large-info-section">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Практики</h2>
+                    <p class="block-main-desc">
+                        Индивидуальные тренировки с детальным разбором телеметрии. Профессиональные инструкторы помогут 
+                        найти правильные траектории, точки торможения и объяснят физику поведения машины.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Записаться к тренеру</a>
+                </div>
+                <div class="large-info-image glass-panel">
+                    <img src="images/practice.jpg" alt="Практики" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Тренировочный процесс ]</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="sections" class="large-info-section reverse">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Секции</h2>
+                    <p class="block-main-desc">
+                        Регулярная гоночная академия для детей и взрослых. Погружение в мир профессионального симрейсинга, 
+                        изучение гоночной инженерии и подготовка к чемпионатам.
+                    </p>
+                    <a href="#booking" class="btn btn-primary">Подать заявку в академию</a>
+                </div>
+                <div class="large-info-image glass-panel">
+                    <img src="images/section.jpg" alt="Секции" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Академия симрейсинга ]</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ИНТЕРАКТИВНЫЙ СЦЕНАРИЙ -->
+    <script>
+        // 1. УМНОЕ ПЛАВНОЕ УМЕНЬШЕНИЕ ЛОГОТИПА ПРИ ПОДХОДЕ К ТАРИФАМ
+        const logoElement = document.querySelector('.logo');
+        const tariffsSection = document.getElementById('tariffs');
+
+        window.addEventListener('scroll', () => {
+            const tariffsTop = tariffsSection.getBoundingClientRect().top;
+            // Уменьшаем логотип, когда секция тарифов поднялась близко к экрану (около 250px до верха)
+            if (tariffsTop < window.innerHeight - 250) {
+                logoElement.style.transform = 'scale(0.85)';
+            } else {
+                logoElement.style.transform = 'scale(1.15)';
+            }
+        });
+
+        // Инициализация стартового размера
+        logoElement.style.transform = 'scale(1.15)';
+        logoElement.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+
+        // 2. ПЕРЕКЛЮЧАТЕЛЬ ДНЕЙ НЕДЕЛИ (БУДНИ / ВЫХОДНЫЕ)
+        const btnWeekdays = document.getElementById('btnWeekdays');
+        const btnWeekend = document.getElementById('btnWeekend');
+        const switcherSlider = document.getElementById('switcherSlider');
+        const priceDisplays = document.querySelectorAll('.price-display');
+
+        let currentDayMode = 'weekdays';
+
+        function updatePrices() {
+            priceDisplays.forEach(display => {
+                display.classList.add('changing');
+                setTimeout(() => {
+                    if (currentDayMode === 'weekdays') {
+                        display.textContent = display.getAttribute('data-weekdays');
+                    } else {
+                        display.textContent = display.getAttribute('data-weekend');
+                    }
+                    display.classList.remove('changing');
+                }, 150);
+            });
+        }
+
+        btnWeekdays.addEventListener('click', () => {
+            if (currentDayMode === 'weekdays') return;
+            currentDayMode = 'weekdays';
+            btnWeekend.classList.remove('active');
+            btnWeekdays.classList.add('active');
+            switcherSlider.style.transform = 'translateX(0)';
+            updatePrices();
+        });
+
+        btnWeekend.addEventListener('click', () => {
+            if (currentDayMode === 'weekend') return;
+            currentDayMode = 'weekend';
+            btnWeekdays.classList.remove('active');
+            btnWeekend.classList.add('active');
+            switcherSlider.style.transform = 'translateX(100%)';
+            updatePrices();
+        });
+
+        // 3. БЕСКОНЕЧНАЯ 3Д ЦИКЛИЧНАЯ КАРУСЕЛЬ (COVERFLOW)
+        const items = Array.from(document.querySelectorAll('.carousel-item'));
+        const prevBtn = document.getElementById('carouselPrev');
+        const nextBtn = document.getElementById('carouselNext');
+        let activeIdx = 1; // По умолчанию Классика по центру (индекс 1)
+
+        function updateCarousel() {
+            items.forEach((item, index) => {
+                item.classList.remove('active', 'prev-item', 'next-item');
+                
+                // Рассчитываем циклическое смещение
+                let offset = index - activeIdx;
+                if (offset < -1) offset += items.length;
+                if (offset > 1) offset -= items.length;
+
+                if (offset === 0) {
+                    item.classList.add('active');
+                    item.style.transform = 'scale(1) translateX(0) translateZ(0)';
+                    item.style.zIndex = '5';
+                    item.style.opacity = '1';
+                } else if (offset === -1 || (activeIdx === 0 && index === items.length - 1)) {
+                    item.classList.add('prev-item');
+                    item.style.transform = 'scale(0.8) translateX(-180px) translateZ(-100px)';
+                    item.style.zIndex = '3';
+                    item.style.opacity = '0.4';
+                } else {
+                    item.classList.add('next-item');
+                    item.style.transform = 'scale(0.8) translateX(180px) translateZ(-100px)';
+                    item.style.zIndex = '3';
+                    item.style.opacity = '0.4';
+                }
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            activeIdx = (activeIdx - 1 + items.length) % items.length;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            activeIdx = (activeIdx + 1) % items.length;
+            updateCarousel();
+        });
+
+        // Инициализация карусели
+        updateCarousel();
+
+        // Мобильное меню по клику
+        const tariffsToggle = document.getElementById('tariffsToggle');
+        const tariffsMenuItem = document.getElementById('tariffsMenuItem');
+        tariffsToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                tariffsMenuItem.classList.toggle('active-click');
+            }
+        });
+        document.addEventListener('click', function(e) {
+            if (!tariffsMenuItem.contains(e.target)) {
+                tariffsMenuItem.classList.remove('active-click');
+            }
+        });
+        document.getElementById('toTopBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
