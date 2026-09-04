@@ -22,10 +22,8 @@
             </a>
             
             <nav class="ios-menu">
-                <!-- Класс active-click будет управляться через JS на мобилках -->
                 <div class="menu-item has-popup" id="tariffsMenuItem">
                     <a href="#tariffs" class="menu-link" id="tariffsToggle">Тарифы</a>
-                    <!-- Выпадающий iOS попап -->
                     <div class="dropdown-popup">
                         <a href="#autosims">Автосимуляторы</a>
                         <a href="#combos">Комбо</a>
@@ -66,7 +64,6 @@
         <section id="tariffs" class="tariffs-section">
             <h2 class="section-title" id="autosims">Автосимуляторы</h2>
             
-            <!-- Контейнер для адаптивного скролла таблицы на смартфонах -->
             <div class="table-responsive glass-panel">
                 <table class="tariffs-table">
                     <thead>
@@ -138,25 +135,80 @@
                     <p class="desc">Три симулятора на одной трассе. Устройте полноценный мини-чемпионат.</p>
                 </div>
             </div>
+        </section>
+        <!-- Блок: Дни Рождения -->
+        <section id="birthdays" class="large-info-section">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Дни Рождения</h2>
+                    <p class="block-main-desc">
+                        Аренда всего клуба, праздничная атмосфера, мини-турнир с награждением для именинника и его друзей. 
+                        Мы берем на себя всю организацию: от настройки симуляторов до ведения турнирной таблицы. 
+                        Эмоции и адреналин, которые запомнятся гостям надолго.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Узнать условия</a>
+                </div>
+                <!-- Контейнер для фото (картинку нужно положить в твой репозиторий, например в папку images) -->
+                <div class="large-info-image glass-panel">
+                    <img src="images/birthday.jpg" alt="Дни Рождения в DRIVE ZONE" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: День Рождения в клубе ]</span>
+                </div>
+            </div>
+        </section>
 
-            <!-- Информационные блоки (Раздельные карточки) -->
-            <h2 class="section-title">Мероприятия и обучение</h2>
-            <div class="info-grid">
-                <div class="info-block glass-panel" id="birthdays">
-                    <h3>Дни Рождения</h3>
-                    <p>Аренда всего клуба, праздничная атмосфера, мини-турнир с награждением для именинника и его друзей. Эмоции, которые запомнятся надолго.</p>
+        <!-- Блок: Корпоративы -->
+        <section id="corporates" class="large-info-section reverse">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Корпоративы</h2>
+                    <p class="block-main-desc">
+                        Тимбилдинг на максимальной скорости. Командные гонки на выносливость, полноценная фуршетная зона, 
+                        профессиональный ведущий-комментатор и трансляция заездов на больших экранах. 
+                        Сплотите команду в условиях бескомпромиссной борьбы за сотые доли секунды на лучших трассах мира.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Оставить заявку</a>
                 </div>
-                <div class="info-block glass-panel" id="corporates">
-                    <h3>Корпоративы</h3>
-                    <p>Тимбилдинг на максимальной скорости. Командные гонки на выносливость, фуршетная зона и профессиональный ведущий-комментатор.</p>
+                <div class="large-info-image glass-panel">
+                    <img src="images/corporate.jpg" alt="Корпоративы в DRIVE ZONE" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Гоночный Тимбилдинг ]</span>
                 </div>
-                <div class="info-block glass-panel" id="practices">
-                    <h3>Практики</h3>
-                    <p>Индивидуальные тренировки с разбором траекторий, точек торможения и поведения машины на треке для улучшения времени круга.</p>
+            </div>
+        </section>
+
+        <!-- Блок: Практики -->
+        <section id="practices" class="large-info-section">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Практики</h2>
+                    <p class="block-main-desc">
+                        Индивидуальные тренировки с детальным разбором телеметрии. Профессиональные инструкторы помогут 
+                        найти правильные траектории, точки торможения и объяснят физику поведения машины на треке. 
+                        Идеальный формат для тех, кто хочет существенно улучшить свое время круга.
+                    </p>
+                    <a href="#booking" class="btn btn-secondary">Записаться к тренеру</a>
                 </div>
-                <div class="info-block glass-panel" id="sections">
-                    <h3>Секции</h3>
-                    <p>Регулярная гоночная академия для детей и взрослых. Погружение в симрейсинг, участие в виртуальных и реальных чемпионатах.</p>
+                <div class="large-info-image glass-panel">
+                    <img src="images/practice.jpg" alt="Практики в DRIVE ZONE" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Тренировочный процесс ]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок: Секции -->
+        <section id="sections" class="large-info-section reverse">
+            <div class="large-info-container">
+                <div class="large-info-content glass-panel">
+                    <h2 class="block-main-title">Секции</h2>
+                    <p class="block-main-desc">
+                        Регулярная гоночная академия для детей и взрослых. Погружение в мир профессионального симрейсинга, 
+                        изучение гоночной инженерии, тактики ведения затяжных гонок и подготовка к участию в крупных виртуальных 
+                        и реальных автоспортивных чемпионатах. Начните свой путь в большой автоспорт.
+                    </p>
+                    <a href="#booking" class="btn btn-primary">Подать заявку в академию</a>
+                </div>
+                <div class="large-info-image glass-panel">
+                    <img src="images/section.jpg" alt="Секции в DRIVE ZONE" onerror="this.style.display='none'">
+                    <span class="image-stub">[ Фото: Академия симрейсинга ]</span>
                 </div>
             </div>
         </section>
@@ -175,7 +227,6 @@
         const tariffsMenuItem = document.getElementById('tariffsMenuItem');
 
         tariffsToggle.addEventListener('click', function(e) {
-            // Проверяем, если ширина экрана мобильная (меньше 768px)
             if (window.innerWidth <= 768) {
                 e.preventDefault(); // Запрещаем мгновенный переход по якорю
                 tariffsMenuItem.classList.toggle('active-click');
