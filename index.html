@@ -4,193 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRIVE ZONE | Клуб автосимуляторов</title>
-    <!-- Подключите ваш файл стилей, например: -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- LIQUID GLASS ФОН (ТОЛЬКО КРАСНЫЙ НЕОН) -->
+    <!-- Ликвидный фоновый неон -->
     <div class="glass-bg-blobs">
         <div class="blob blob-1"></div>
     </div>
 
-    <!-- ПОЛЬЗОВАТЕЛЬСКАЯ ПРОЗРАЧНАЯ ШАПКА -->
+    <!-- Шапка сайта -->
     <header class="header" id="mainHeader">
         <div class="header-container">
             <a href="#" class="logo">
-                <!-- Замените на путь к вашему логотипу -->
-                <img src="img/logo.png" alt="DRIVE ZONE">
+                <img src="svgs/Logo.svg" alt="DRIVE ZONE">
             </a>
-            
-            <!-- ЧИСТЫЙ ОСТРОВОК МЕНЮ -->
             <nav class="ios-menu">
-                <div class="menu-item">
-                    <a href="#tariffs" class="menu-link">Тарифы</a>
-                </div>
-                <div class="menu-item has-popup">
-                    <a href="#" class="menu-link">Услуги</a>
-                    <div class="dropdown-popup">
-                        <a href="#combos">Комбо-наборы</a>
-                        <a href="#birthdays">Дни Рождения</a>
-                        <a href="#corporate">Корпоративы</a>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <a href="#academy" class="menu-link">Академия</a>
-                </div>
+                <div class="menu-item"><a href="#" class="menu-link">Автосимуляторы</a></div>
+                <div class="menu-item"><a href="#" class="menu-link">Комбо</a></div>
+                <div class="menu-item"><a href="#" class="menu-link">Дни Рождения</a></div>
+                <div class="menu-item"><a href="#" class="menu-link">Корпоративы</a></div>
+                <div class="menu-item"><a href="#" class="menu-link">Практики</a></div>
+                <div class="menu-item"><a href="#" class="menu-link">Секции</a></div>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- ОГРОМНЫЙ ГЛАВНЫЙ ЭКРАН (100vh) -->
+        <!-- Главный экран с исправленным фоновым видео -->
         <section class="hero">
-            <!-- ФОНОВОЕ ВИДЕО -->
-            <video autoplay loop muted playsinline class="hero-video-bg">
-                <source src="video/hero-bg.mp4" type="video/mp4">
-                <source src="video/hero-bg.webm" type="video/webm">
+            <video class="hero-video-bg" autoplay loop muted playsinline>
+                <source src="videos/bg-hero.mp4" type="video/mp4">
                 Ваш браузер не поддерживает видео.
             </video>
-
+            
             <div class="hero-content glass-panel">
                 <h1 class="hero-title">DRIVE ZONE</h1>
                 <p class="hero-subtitle">Клуб профессиональных автосимуляторов с атмосферой настоящих гонок. Одиночные заезды, турниры, яркие корпоративы и праздники с друзьями в пространстве, куда хочется возвращаться снова и снова.</p>
                 <div class="hero-actions">
-                    <a href="#booking" class="btn btn-primary">Забронировать заезд</a>
-                    <a href="#about" class="btn btn-secondary">Что внутри?</a>
+                    <a href="#" class="btn btn-primary">Забронировать заезд</a>
+                    <a href="#" class="btn btn-secondary">Что внутри?</a>
                 </div>
             </div>
         </section>
-
-        <!-- СЕКЦИЯ СТОИМОСТИ -->
-        <section class="tariffs-section" id="tariffs">
+        <!-- Секция Тарифов / Карусель симуляторов -->
+        <section class="tariffs-section">
             <h2 class="section-title">Что входит в каждый тариф</h2>
             <p class="section-desc-text">Топовое железо на всех симуляторах. Тарифы отличаются монитором, рулевой базой и периферией.</p>
-
-            <!-- АНИМИРОВАННЫЙ ТУМБЛЕР ЦЕН -->
-            <div class="days-switcher-container">
-                <div class="days-switcher">
-                    <div class="switcher-bg" id="switcherBg"></div>
-                    <button class="switcher-btn active" onclick="switchPrices('weekday')">ПН - ЧТ</button>
-                    <button class="switcher-btn" onclick="switchPrices('weekend')">ПТ - ВС</button>
-                </div>
-            </div>
-
-            <!-- ПЛАНКА С ЦЕНАМИ -->
-            <div class="prices-wrapper glass-panel">
-                <!-- СПОРТКАР -->
-                <div class="price-row-item">
-                    <div class="price-type">
-                        <h3>СПОРТКАР</h3>
-                        <span>Болид с открытыми колесами</span>
-                    </div>
-                    <div class="price-slots">
-                        <div class="p-box"><span>30 мин</span><div class="cost" data-weekday="590 ₽" data-weekend="690 ₽">590 ₽</div></div>
-                        <div class="p-box"><span>60 мин</span><div class="cost" data-weekday="790 ₽" data-weekend="890 ₽">790 ₽</div></div>
-                        <div class="p-box"><span>120 мин</span><div class="cost" data-weekday="1290 ₽" data-weekend="1490 ₽">1290 ₽</div></div>
-                    </div>
-                </div>
-                <!-- КЛАССИКА -->
-                <div class="price-row-item">
-                    <div class="price-type">
-                        <h3>КЛАССИКА</h3>
-                        <span>База для старта · Moza R5</span>
-                    </div>
-                    <div class="price-slots">
-                        <div class="p-box"><span>30 мин</span><div class="cost" data-weekday="690 ₽" data-weekend="790 ₽">690 ₽</div></div>
-                        <div class="p-box"><span>60 мин</span><div class="cost" data-weekday="890 ₽" data-weekend="990 ₽">890 ₽</div></div>
-                        <div class="p-box"><span>120 мин</span><div class="cost" data-weekday="1390 ₽" data-weekend="1590 ₽">1390 ₽</div></div>
-                    </div>
-                </div>
-                <!-- ВИП -->
-                <div class="price-row-item">
-                    <div class="price-type">
-                        <h3>ВИП</h3>
-                        <span>Подвижная платформа · Moza R9</span>
-                    </div>
-                    <div class="price-slots">
-                        <div class="p-box"><span>30 мин</span><div class="cost" data-weekday="890 ₽" data-weekend="990 ₽">890 ₽</div></div>
-                        <div class="p-box"><span>60 мин</span><div class="cost" data-weekday="1090 ₽" data-weekend="1290 ₽">1090 ₽</div></div>
-                        <div class="p-box"><span>120 мин</span><div class="cost" data-weekday="1490 ₽" data-weekend="1690 ₽">1490 ₽</div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- БЕСКОНЕЧНАЯ 3D-КАРУСЕЛЬ НА ПК -->
-        <div class="carousel-wrapper">
-            <button class="carousel-nav-btn prev" onclick="moveCarousel(-1)">←</button>
             
-            <div class="configs-carousel-container" id="carouselContainer">
-                
-                <!-- Слайд 1: Спорткар -->
-                <div class="config-card glass-panel active-slide" data-slide="0">
-                    <div class="config-image-box">
-                        <img src="img/sportcar.jpg" alt="Спорткар">
-                        <div class="img-placeholder-stub">[ Фото: Спорткар ]</div>
+            <div class="carousel-wrapper">
+                <div class="configs-carousel-container">
+                    
+                    <!-- Карточка Спорткар -->
+                    <div class="config-card active-slide glass-panel">
+                        <div class="config-image-box">
+                            <img src="images/simulators/sportcar.jpg" alt="Спорткар">
+                        </div>
+                        <div class="config-header">
+                            <h3>СПОРТКАР</h3>
+                            <div class="config-price-tag">от 590 ₽<span>/30м</span></div>
+                        </div>
+                        <div class="config-sub-label">Болид с открытыми колесами</div>
+                        <ul class="specs-list">
+                            <li><span class="spec-name">Монитор</span><span class="spec-value">49″ Ultrawide · 280 Гц</span></li>
+                            <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
+                            <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
+                            <li><span class="spec-name">База</span><span class="spec-value">Moza R5</span></li>
+                            <li><span class="spec-name">Педали</span><span class="spec-value">SRP Lite</span></li>
+                            <li><span class="spec-name">Руль</span><span class="spec-value">Moza Vision VGS</span></li>
+                        </ul>
                     </div>
-                    <div class="config-header">
-                        <h3>СПОРТКАР</h3>
-                        <div class="config-price-tag">от 590 ₽<span>/30м</span></div>
-                    </div>
-                    <div class="config-sub-label">Болид с открытыми колесами</div>
-                    <ul class="specs-list">
-                        <li><span class="spec-name">Монитор</span><span class="spec-value">49″ Ultrawide · 280 Гц</span></li>
-                        <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
-                        <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
-                        <li><span class="spec-name">База</span><span class="spec-value">Moza R5</span></li>
-                        <li><span class="spec-name">Педали</span><span class="spec-value">SRP Lite</span></li>
-                        <li><span class="spec-name">Руль</span><span class="spec-value">Moza Vision VGS</span></li>
-                    </ul>
-                </div>
 
-                <!-- Слайд 2: Классика -->
-                <div class="config-card glass-panel next-slide" data-slide="1">
-                    <div class="config-image-box">
-                        <img src="img/classic.jpg" alt="Классика">
-                        <div class="img-placeholder-stub">[ Фото: Классика ]</div>
+                    <!-- Карточка Классика -->
+                    <div class="config-card next-slide glass-panel">
+                        <div class="config-image-box">
+                            <img src="images/simulators/classic.jpg" alt="Классика">
+                        </div>
+                        <div class="config-header">
+                            <h3>КЛАССИКА</h3>
+                            <div class="config-price-tag">от 690 ₽<span>/30м</span></div>
+                        </div>
+                        <div class="config-sub-label">База для старта</div>
+                        <ul class="specs-list">
+                            <li><span class="spec-name">Монитор</span><span class="spec-value">55″ · 144 Гц</span></li>
+                            <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
+                            <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
+                            <li><span class="spec-name">База</span><span class="spec-value">Moza R5</span></li>
+                            <li><span class="spec-name">Педали</span><span class="spec-value">SRP Lite</span></li>
+                            <li><span class="spec-name">КПП / Ручник</span><span class="spec-value">Simagic DS-8X / Moza HBP</span></li>
+                        </ul>
                     </div>
-                    <div class="config-header">
-                        <h3>КЛАССИКА</h3>
-                        <div class="config-price-tag">от 690 ₽<span>/30м</span></div>
-                    </div>
-                    <div class="config-sub-label">База для старта</div>
-                    <ul class="specs-list">
-                        <li><span class="spec-name">Монитор</span><span class="spec-value">55″ · 144 Гц</span></li>
-                        <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
-                        <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
-                        <li><span class="spec-name">База</span><span class="spec-value">Moza R5</span></li>
-                        <li><span class="spec-name">Педали</span><span class="spec-value">SRP Lite</span></li>
-                        <li><span class="spec-name">КПП/Ручник</span><span class="spec-value">Simagic DS-8X / Moza HBP</span></li>
-                    </ul>
-                </div>
 
-                <!-- Слайд 3: ВИП -->
-                <div class="config-card glass-panel prev-slide" data-slide="2">
-                    <div class="config-image-box">
-                        <img src="img/vip.jpg" alt="ВИП">
-                        <div class="img-placeholder-stub">[ Фото: ВИП ]</div>
+                    <!-- Карточка ВИП -->
+                    <div class="config-card hidden-slide glass-panel">
+                        <div class="config-image-box">
+                            <img src="images/simulators/vip.jpg" alt="ВИП">
+                        </div>
+                        <div class="config-header">
+                            <h3>ВИП</h3>
+                            <div class="config-price-tag">от 890 ₽<span>/30м</span></div>
+                        </div>
+                        <div class="config-sub-label">Подвижная платформа</div>
+                        <ul class="specs-list">
+                            <li><span class="spec-name">Монитор</span><span class="spec-value">Triple Screen · 250 Гц</span></li>
+                            <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
+                            <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
+                            <li><span class="spec-name">База</span><span class="spec-value">Moza R9</span></li>
+                            <li><span class="spec-name">Педали</span><span class="spec-value">SRP2</span></li>
+                            <li><span class="spec-name">КПП / Ручник</span><span class="spec-value">Simagic DS-8X / Moza HBP</span></li>
+                        </ul>
                     </div>
-                    <div class="config-header">
-                        <h3>ВИП</h3>
-                        <div class="config-price-tag">от 890 ₽<span>/30м</span></div>
-                    </div>
-                    <div class="config-sub-label">Подвижная платформа</div>
-                    <ul class="specs-list">
-                        <li><span class="spec-name">Монитор</span><span class="spec-value">Triple Screen · 250 Гц</span></li>
-                        <li><span class="spec-name">Процессор</span><span class="spec-value">i5-13400 · 32 ГБ</span></li>
-                        <li><span class="spec-name">Видеокарта</span><span class="spec-value">RTX 5060 Ti 16 ГБ</span></li>
-                        <li><span class="spec-name">База</span><span class="spec-value">Moza R9</span></li>
-                        <li><span class="spec-name">Педали</span><span class="spec-value">SRP2</span></li>
-                        <li><span class="spec-name">КПП/Ручник</span><span class="spec-value">Simagic DS-8X / Moza HBP</span></li>
-                    </ul>
-                </div>
 
+                </div>
             </div>
-            <button class="carousel-nav-btn next" onclick="moveCarousel(1)">→</button>
-        </div>
 
-        <!-- СЕТКА КОМБО-НАБОРОВ -->
-        <section class="tariffs-section" id="combos">
+            <!-- Комбо-наборы -->
             <h2 class="section-title">Комбо-наборы</h2>
             <div class="combos-grid">
                 <div class="combo-card glass-panel">
@@ -205,8 +133,9 @@
                 </div>
             </div>
         </section>
-        <!-- БОЛЬШИЕ САМОСТОЯТЕЛЬНЫЕ БЛОКИ МЕРОПРИЯТИЙ -->
-        <section class="large-screen-block" id="birthdays">
+
+        <!-- Блоки Мероприятий и Практик -->
+        <section class="large-screen-block">
             <div class="large-block-container glass-panel">
                 <div class="large-block-content">
                     <h2>Дни Рождения</h2>
@@ -214,13 +143,12 @@
                     <a href="#" class="btn btn-primary">Узнать условия</a>
                 </div>
                 <div class="large-block-image">
-                    <img src="img/birthday.jpg" alt="День Рождения в клубе">
-                    <div class="image-stub">[ Фото: День Рождения в клубе ]</div>
+                    <img src="images/birthday.jpg" alt="День Рождения">
                 </div>
             </div>
         </section>
 
-        <section class="large-screen-block reverse" id="corporate">
+        <section class="large-screen-block reverse">
             <div class="large-block-container glass-panel">
                 <div class="large-block-content">
                     <h2>Corporate Events</h2>
@@ -228,13 +156,12 @@
                     <a href="#" class="btn btn-primary">Оставить заявку</a>
                 </div>
                 <div class="large-block-image">
-                    <img src="img/corporate.jpg" alt="Гоночный Тимбилдинг">
-                    <div class="image-stub">[ Фото: Гоночный Тимбилдинг ]</div>
+                    <img src="images/corporate.jpg" alt="Корпоративы">
                 </div>
             </div>
         </section>
 
-        <section class="large-screen-block" id="practices">
+        <section class="large-screen-block">
             <div class="large-block-container glass-panel">
                 <div class="large-block-content">
                     <h2>Практики</h2>
@@ -242,13 +169,12 @@
                     <a href="#" class="btn btn-primary">Записаться к тренеру</a>
                 </div>
                 <div class="large-block-image">
-                    <img src="img/practice.jpg" alt="Тренировочный процесс">
-                    <div class="image-stub">[ Фото: Тренировочный процесс ]</div>
+                    <img src="images/practice.jpg" alt="Практики">
                 </div>
             </div>
         </section>
 
-        <section class="large-screen-block reverse" id="academy">
+        <section class="large-screen-block reverse">
             <div class="large-block-container glass-panel">
                 <div class="large-block-content">
                     <h2>Секции академии</h2>
@@ -256,74 +182,21 @@
                     <a href="#" class="btn btn-primary">Подать заявку в секцию</a>
                 </div>
                 <div class="large-block-image">
-                    <img src="img/academy.jpg" alt="Академия симрейсинга">
-                    <div class="image-stub">[ Фото: Академия симрейсинга ]</div>
+                    <img src="images/section.jpg" alt="Секции">
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- СКРИПТЫ ДЛЯ ИНТЕРАКТИВА (Скролл шапки, тумблер цен, 3D-карусель) -->
     <script>
-        // 1. Анимация шапки при скролле
         window.addEventListener('scroll', () => {
             const header = document.getElementById('mainHeader');
-            if (window.scrollY > 100) {
+            if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
         });
-
-        // 2. Логика переключения цен (Будни / Выходные)
-        function switchPrices(type) {
-            const buttons = document.querySelectorAll('.switcher-btn');
-            const bg = document.getElementById('switcherBg');
-            const costs = document.querySelectorAll('.cost');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (type === 'weekday') {
-                bg.style.left = '4px';
-            } else {
-                bg.style.left = 'calc(50% - 2px)';
-            }
-
-            costs.forEach(cost => {
-                cost.classList.add('price-changing');
-                setTimeout(() => {
-                    cost.textContent = type === 'weekday' ? cost.getAttribute('data-weekday') : cost.getAttribute('data-weekend');
-                    cost.classList.remove('price-changing');
-                }, 150);
-            });
-        }
-
-        // 3. Логика 3D Карусели
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.config-card');
-        const totalSlides = slides.length;
-
-        function moveCarousel(direction) {
-            // На мобилках карусель работает на нативном скролле, 3D логику отключаем
-            if (window.innerWidth <= 768) return;
-
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            
-            slides.forEach((slide, index) => {
-                slide.className = 'config-card glass-panel'; // сброс классов
-                
-                if (index === currentSlide) {
-                    slide.classList.add('active-slide');
-                } else if (index === (currentSlide - 1 + totalSlides) % totalSlides) {
-                    slide.classList.add('prev-slide');
-                } else if (index === (currentSlide + 1) % totalSlides) {
-                    slide.classList.add('next-slide');
-                } else {
-                    slide.classList.add('hidden-slide');
-                }
-            });
-        }
     </script>
 </body>
 </html>
