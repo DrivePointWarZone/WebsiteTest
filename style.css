@@ -1,0 +1,843 @@
+/* 1. ПОДКЛЮЧЕНИЕ ШРИФТОВ */
+@font-face {
+    font-family: 'DDT';
+    src: url('fonts/DDTEl-Italic.woff2') format('woff2');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'DDT';
+    src: url('fonts/DDTRg-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'DDT';
+    src: url('fonts/DDTHv-Italic.woff2') format('woff2');
+    font-weight: 900;
+    font-style: italic;
+}
+
+/* 2. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ */
+:root {
+    --bg-dark: #0a0a0c;
+    --bg-card: rgba(18, 18, 22, 0.6);
+    --border-glass: rgba(255, 255, 255, 0.05);
+    --text-white: #ffffff;
+    --text-gray: #9292a4;
+    --racing-red: #e62222; 
+    --racing-red-glow: rgba(230, 34, 34, 0.25);
+    --apple-red-hover: rgba(230, 34, 34, 0.15); 
+    --font-main: 'DDT', sans-serif;
+}
+
+/* 3. ОБНУЛЕНИЕ И ЗАЩИТА ОТ БОКОВОГО СКРОЛЛА */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: var(--font-main);
+    font-weight: 400;
+    overflow-x: hidden; 
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+}
+
+main {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* 4. LIQUID GLASS ФОН (ТОЛЬКО КРАСНЫЙ НЕОН) */
+.glass-bg-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(160px);
+    opacity: 0.15;
+    animation: floatAnimation 14s infinite ease-in-out;
+}
+
+.blob-1 {
+    top: 20%;
+    right: 15%;
+    width: 600px;
+    height: 600px;
+    background: var(--racing-red);
+}
+
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-40px) scale(1.08); }
+}
+
+.glass-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* 5. ПОЛЬЗОВАТЕЛЬСКАЯ ПРОЗРАЧНАЯ ШАПКА */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    /* Увеличили боковые отступы до 60px, чтобы элементы красиво не липли вплотную к рамкам дисплея */
+    padding: 40px 60px; 
+    background: transparent; 
+    border-bottom: none;
+    transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header.scrolled {
+    padding: 20px 60px;
+}
+
+.header-container {
+    width: 100%; /* Убрали max-width: 1400px, теперь блок тянется на 100% ширины */
+    margin: 0; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 6. ИСПРАВЛЕННЫЙ ОГРОМНЫЙ ЛОГОТИП СЛЕВА СВЕРХУ */
+.logo {
+    display: block;
+    transform: scale(2.2); /* Стартовый увеличенный масштаб */
+    transform-origin: left center; /* Масштабируется строго из левого угла */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    mix-blend-mode: difference;
+}
+
+.logo img {
+    height: 32px;
+    display: block;
+    /* Умный красный фильтр + очень слабая, мягкая тёмная тень */
+    filter: invert(21%) sepia(93%) saturate(6935%) hue-rotate(356deg) brightness(94%) contrast(117%) drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+/* Плавное уменьшение при доскролле до тарифов */
+.header.scrolled .logo {
+    transform: scale(1);
+}
+
+.logo:hover {
+    transform: scale(2.25);
+}
+
+.header.scrolled .logo:hover {
+    transform: scale(1.05);
+}
+
+/* 7. ЧИСТЫЙ ОСТРОВОК МЕНЮ */
+.ios-menu {
+    display: flex;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 14px;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-link {
+    display: block;
+    color: var(--text-white);
+    text-decoration: none;
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 10px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.menu-link:hover {
+    background-color: var(--apple-red-hover);
+    color: var(--racing-red);
+}
+
+.dropdown-popup {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 220px;
+    background: rgba(12, 12, 15, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--border-glass);
+    border-radius: 18px;
+    padding: 8px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+}
+
+@media (min-width: 769px) {
+    .has-popup:hover .dropdown-popup {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.menu-item.active-click .dropdown-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-popup a {
+    display: block;
+    color: var(--text-white);
+    text-decoration: none;
+    padding: 12px 18px;
+    font-size: 15px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-popup a:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--racing-red);
+}
+/* 8. ОГРОМНЫЙ ГЛАВНЫЙ ЭКРАН (100vh) */
+.hero {
+    width: 100%;
+    height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative; /* Чтобы видео позиционировалось относительно экрана */
+    overflow: hidden;
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Видео растягивается без швов на весь экран */
+    z-index: -1; /* Уходит под стеклянную панель с текстом */
+    opacity: 0.35; /* Приглушаем яркость, чтобы текст DRIVE ZONE идеально читался */
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 60px;
+}
+
+.hero-title {
+    font-size: 84px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 40%, #7d7d8c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--text-gray);
+    margin-bottom: 40px;
+}
+
+/* 9. СТИЛЬНЫЕ КНОПКИ ЗАЕЗДА */
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 18px 36px;
+    font-size: 15px;
+    font-weight: 900;
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: var(--racing-red);
+    color: var(--text-white);
+    box-shadow: 0 4px 20px var(--racing-red-glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 26px var(--racing-red);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-white);
+    border: 1px solid var(--border-glass);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+/* 10. СЕКЦИЯ СТОИМОСТИ */
+.tariffs-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 38px;
+    font-weight: 900;
+    margin: 100px 0 32px;
+    text-transform: uppercase;
+    border-left: 5px solid var(--racing-red);
+    padding-left: 18px;
+    letter-spacing: 0.5px;
+}
+
+.section-desc-text {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin-top: -16px;
+    margin-bottom: 48px;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* 11. АНИМИРОВАННЫЙ ТУМБЛЕР ЦЕН */
+.days-switcher-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.days-switcher {
+    position: relative;
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    padding: 4px;
+    border-radius: 14px;
+    width: 320px;
+}
+
+.switcher-bg {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 2px);
+    height: calc(100% - 8px);
+    background: var(--racing-red);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--racing-red-glow);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+}
+
+.switcher-btn {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-gray);
+    padding: 12px 0;
+    font-family: var(--font-main);
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.switcher-btn.active {
+    color: var(--text-white);
+}
+
+/* Планка с ценами */
+.prices-wrapper {
+    width: 100%;
+    padding: 10px 40px;
+    margin-bottom: 60px;
+}
+
+.price-row-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.price-row-item:last-child {
+    border-bottom: none;
+}
+
+.price-type h3 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.price-type span {
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+.price-slots {
+    display: flex;
+    gap: 48px;
+}
+
+.p-box {
+    text-align: center;
+}
+
+.p-box span {
+    display: block;
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.cost {
+    font-size: 28px;
+    font-weight: 900;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.cost.price-changing {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* 12. СЕТКА КОМБО-НАБОРОВ */
+.combos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.combo-card {
+    padding: 40px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.combo-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(230, 34, 34, 0.3);
+}
+
+.combo-card h3 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.combo-price {
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.combo-price span {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-gray);
+}
+
+.combo-desc {
+    color: var(--text-gray);
+    line-height: 1.6;
+    font-size: 15px;
+}
+/* 13. БЕСКОНЕЧНАЯ 3D-КАРУСЕЛЬ НА ПК (ФИРМЕННЫЙ СТИЛЬ) */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Контейнер карусели с трехмерным пространством */
+.configs-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 600px; /* Достаточная высота для 3D-карточек */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px; /* Глубина 3D сцены */
+}
+
+/* Базовые стили карточек железа */
+.config-card {
+    position: absolute;
+    width: 360px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.6s ease, 
+                filter 0.6s ease, 
+                border-color 0.3s ease;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.config-image-box {
+    width: 100%;
+    height: 180px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Если картинка отображается (её display не равен none), прячем заглушку */
+.config-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2; /* Картинка встает поверх заглушки */
+}
+
+.img-placeholder-stub {
+    font-size: 13px;
+    color: var(--text-gray);
+    position: absolute;
+    z-index: 1; /* Заглушка остается на нижнем слое */
+}
+
+.config-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.config-header h3 {
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.config-price-tag {
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.config-price-tag span {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-gray);
+}
+
+.config-sub-label {
+    font-size: 13px;
+    color: var(--racing-red);
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.specs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.specs-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    padding-bottom: 8px;
+}
+
+.specs-list li:last-child {
+    border-bottom: none;
+}
+
+.spec-name {
+    color: #585864;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.spec-value {
+    color: var(--text-white);
+}
+
+/* 3D-Состояния слайдов (Уменьшены, заблюрены и приглушены по бокам) */
+.config-card.active-slide {
+    transform: translate3d(0, 0, 100px) scale(1);
+    opacity: 1;
+    filter: blur(0px) !important; /* Полностью чистая карточка без блюра */
+    -webkit-filter: blur(0px) !important;
+    z-index: 5;
+    pointer-events: auto;
+    border-color: rgba(230, 34, 34, 0.4);
+    box-shadow: 0 16px 50px rgba(230, 34, 34, 0.15);
+}
+
+.config-card.prev-slide {
+    transform: translate3d(-320px, 0, -100px) scale(0.85) rotateY(15deg);
+    opacity: 0.4;
+    filter: blur(4px); /* Блюр только тут */
+    z-index: 3;
+}
+
+.config-card.next-slide {
+    transform: translate3d(320px, 0, -100px) scale(0.85) rotateY(-15deg);
+    opacity: 0.4;
+    filter: blur(4px); /* Блюр только тут */
+    z-index: 3;
+}
+
+.config-card.hidden-slide {
+    transform: translate3d(0, 0, -300px) scale(0.7);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Стрелки навигации карусели */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    color: var(--text-white);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-nav-btn:hover {
+    background: var(--racing-red);
+    border-color: var(--racing-red);
+    box-shadow: 0 4px 15px var(--racing-red-glow);
+}
+
+.carousel-nav-btn.prev { left: 40px; }
+.carousel-nav-btn.next { right: 40px; }
+
+
+/* 14. БОЛЬШИЕ САМОСТОЯТЕЛЬНЫЕ БЛОКИ МЕРОПРИЯТИЙ */
+.large-screen-block {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
+    margin: 120px auto;
+    padding: 0 40px;
+}
+
+.large-block-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.large-block-content {
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.large-block-content h2 {
+    font-size: 46px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.large-block-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-gray);
+    margin-bottom: 40px;
+}
+
+.large-block-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.large-block-image img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.large-screen-block.reverse .large-block-container .large-block-content { order: 2; }
+.large-screen-block.reverse .large-block-container .large-block-image { order: 1; }
+
+.image-stub {
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+
+/* ================= ПОЛНЫЙ МОБИЛЬНЫЙ АДАПТИВ ================= */
+
+@media (max-width: 1100px) {
+    .logo { transform: scale(1.6); }
+    .hero-title { font-size: 68px; }
+    .carousel-nav-btn.prev { left: 10px; }
+    .carousel-nav-btn.next { right: 10px; }
+    .large-block-container { grid-template-columns: 1fr; gap: 30px; }
+    .large-screen-block.reverse .large-block-container .large-block-content { order: 1; }
+    .large-screen-block.reverse .large-block-container .large-block-image { order: 2; }
+    .large-screen-block { min-height: auto; margin: 60px auto; }
+}
+
+@media (max-width: 768px) {
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .header { padding: 16px 20px; }
+    .header-container { display: flex; flex-direction: row; justify-content: space-between; width: 100%; }
+    
+    /* На мобилке стартовый логотип чуть поменьше, чтобы влезал, но оставался крупным */
+    .logo { transform: scale(1.5); }
+    .header.scrolled .logo { transform: scale(1); }
+    .logo img { height: 26px; }
+    
+    .menu-link { padding: 10px 16px; font-size: 14px; }
+    .dropdown-popup {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: auto;
+        left: 50%; /* Центрируем относительно кнопки тарифов */
+        transform: translateX(-50%) translateY(10px);
+        width: 220px;
+    }
+    
+    .menu-item.active-click .dropdown-popup {
+        transform: translateX(-50%) translateY(0);
+    }
+
+
+    .hero { padding: 0 20px; }
+    .hero-content { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .hero-title { font-size: 52px; }
+    .hero-subtitle { font-size: 16px; }
+    .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
+    .btn { width: 100%; text-align: center; }
+
+    /* Мобильный вид цен */
+    .tariffs-section { padding: 0 20px; }
+    .prices-wrapper { padding: 10px 24px; }
+    .price-row-item { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .price-slots { width: 100%; justify-content: space-between; gap: 10px; }
+    .cost { font-size: 22px; }
+
+    /* ОТКЛЮЧЕНИЕ 3D И ВКЛЮЧЕНИЕ НАЙТИВНОЙ ТАЧ-ЛЕНТЫ НА МОБИЛКАХ */
+    .carousel-nav-btn { display: none; } /* Скрываем стрелки */
+    .carousel-wrapper { margin-bottom: 40px; }
+    
+    .configs-carousel-container {
+        display: flex;
+        overflow-x: auto; /* Включаем боковой скролл пальцем */
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        height: auto;
+        padding: 20px;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    .config-card {
+        position: static; /* Выстраиваем в обычный flex-ряд */
+        flex: 0 0 280px; /* Фиксированная ширина карточки */
+        scroll-snap-align: start;
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        pointer-events: auto;
+    }
+    
+    .config-image-box { height: 150px; }
+
+    /* Мероприятия на мобильном */
+    .large-screen-block { padding: 0 20px; margin: 40px auto; }
+    .large-block-content { padding: 32px 20px; text-align: center; align-items: center; }
+    .large-block-content h2 { font-size: 32px; }
+    .large-block-image { min-height: 280px; }
+}
