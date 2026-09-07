@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка видео</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0a0c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .video-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #1a1a1e;
+            position: relative;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .info {
+            color: #9292a4;
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .error {
+            color: #e62222;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .success {
+            color: #00ff88;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Проверка видео: videos/bg-hero.mp4</h1>
+    
+    <div class="video-container">
+        <video autoplay loop muted playsinline id="testVideo">
+            <source src="videos/bg-hero.mp4" type="video/mp4">
+            <p>Ваш браузер не поддерживает видео</p>
+        </video>
+    </div>
+
+    <div class="info">
+        <p>📁 Путь: <strong>videos/bg-hero.mp4</strong></p>
+        <p id="status">⏳ Проверка...</p>
+    </div>
+
+    <script>
+        const video = document.getElementById('testVideo');
+        const status = document.getElementById('status');
+
+        video.addEventListener('loadeddata', function() {
+            status.innerHTML = '✅ ВИДЕО РАБОТАЕТ!';
+            status.className = 'success';
+            console.log('Видео успешно загружено');
+        });
+
+        video.addEventListener('error', function(e) {
+            status.innerHTML = '❌ ВИДЕО НЕ ЗАГРУЖАЕТСЯ! Проверь путь и наличие файла.';
+            status.className = 'error';
+            console.error('Ошибка загрузки видео:', e);
+        });
+
+        // Проверка через 3 секунды, если видео не загрузилось
+        setTimeout(() => {
+            if (video.readyState === 0) {
+                status.innerHTML = '⚠️ Видео не загрузилось за 3 секунды. Возможно, файл отсутствует.';
+                status.className = 'error';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
