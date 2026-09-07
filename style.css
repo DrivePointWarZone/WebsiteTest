@@ -25,13 +25,13 @@
     --border-glass: rgba(255, 255, 255, 0.05);
     --text-white: #ffffff;
     --text-gray: #9292a4;
-    --racing-red: #e62222; /* Гоночный красный */
+    --racing-red: #e62222; 
     --racing-red-glow: rgba(230, 34, 34, 0.25);
-    --apple-red-hover: rgba(230, 34, 34, 0.15); /* Красный Apple-ховер */
+    --apple-red-hover: rgba(230, 34, 34, 0.15); 
     --font-main: 'DDT', sans-serif;
 }
 
-/* 3. СБРОС СТИЛЕЙ И ЗАЩИТА ОТ БОКОВОГО СКРОЛЛА */
+/* 3. ОБНУЛЕНИЕ И ЗАЩИТА ОТ БОКОВОГО СКРОЛЛА */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -44,7 +44,7 @@ body {
     color: var(--text-white);
     font-family: var(--font-main);
     font-weight: 400;
-    overflow-x: hidden; /* Строгий запрет горизонтального скролла для всего сайта */
+    overflow-x: hidden; 
     width: 100%;
     position: relative;
     min-height: 100vh;
@@ -56,7 +56,7 @@ main {
     overflow: hidden;
 }
 
-/* 4. LIQUID GLASS ФОН (БЕЗ СИНЕГО!) */
+/* 4. LIQUID GLASS ФОН (ТОЛЬКО КРАСНЫЙ НЕОН) */
 .glass-bg-blobs {
     position: fixed;
     top: 0;
@@ -86,10 +86,9 @@ main {
 
 @keyframes floatAnimation {
     0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-40px) scale(1.1); }
+    50% { transform: translateY(-40px) scale(1.08); }
 }
 
-/* 5. ОБЩИЙ СТИЛЬ СТЕКЛЯННЫХ ПАНЕЛЕЙ */
 .glass-panel {
     background: var(--bg-card);
     backdrop-filter: blur(24px);
@@ -99,7 +98,7 @@ main {
     box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
 }
 
-/* 6. УМНАЯ АДАПТИВНАЯ ШАПКА */
+/* 5. ПОЛНОСТЬЮ ПРОЗРАЧНАЯ ШАПКА */
 .header {
     position: fixed;
     top: 0;
@@ -107,16 +106,14 @@ main {
     width: 100%;
     z-index: 100;
     padding: 40px;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent; /* Никакого фона во всю ширину */
+    border-bottom: none;
+    transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Когда пользователь доскроллил до тарифов, шапка плавно сжимается */
+/* При скролле уменьшаем только внутренние отступы для компактности */
 .header.scrolled {
-    padding: 16px 40px;
-    background: rgba(10, 10, 12, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-glass);
+    padding: 20px 40px;
 }
 
 .header-container {
@@ -125,46 +122,38 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
 }
 
-/* 7. ЛОГИКА ТРАНСФОРМАЦИИ И ПЕРЕКРАСКИ ЛОГОТИПА */
+/* 6. ИСПРАВЛЕННЫЙ ОГРОМНЫЙ ЛОГОТИП СЛЕВА СВЕРХУ */
 .logo {
     display: block;
-    position: absolute;
-    left: 50%;
-    top: 50vh; /* Изначально огромный и строго по центру экрана */
-    transform: translate(-50%, -50%) scale(4.5); 
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    mix-blend-mode: difference; /* Защита от сливания с фоном */
-    pointer-events: none; /* Пока большой, кликнуть нельзя, чтобы не мешал */
+    transform: scale(2.2); /* Стартовый увеличенный масштаб */
+    transform-origin: left center; /* Масштабируется строго из левого угла */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    mix-blend-mode: difference;
 }
 
-/* Эффект фильтра: превращает твой черный вектор в сочный красный */
 .logo img {
-    height: 34px;
+    height: 32px;
     display: block;
-    filter: invert(21%) sepia(93%) saturate(6935%) hue-rotate(356deg) brightness(94%) contrast(117%) drop-shadow(0 0 1px rgba(255,255,255,0.2));
+    /* Умный красный фильтр + очень слабая, мягкая тёмная тень */
+    filter: invert(21%) sepia(93%) saturate(6935%) hue-rotate(356deg) brightness(94%) contrast(117%) drop-shadow(0 2px 4px rgba(0,0,0,0.4));
 }
 
-/* Когда доскроллили: логотип плавно летит в левый верхний угол и становится кнопкой */
+/* Плавное уменьшение при доскролле до тарифов */
 .header.scrolled .logo {
-    position: relative;
-    left: 0;
-    top: auto;
-    transform: translate(0, 0) scale(1);
-    pointer-events: auto;
+    transform: scale(1);
 }
 
 .logo:hover {
-    transform: scale(1.03);
+    transform: scale(2.25);
 }
 
 .header.scrolled .logo:hover {
     transform: scale(1.05);
 }
 
-/* 8. IOS STYLE МЕНЮ БЕЗ ФОНА */
+/* 7. ЧИСТЫЙ ОСТРОВОК МЕНЮ */
 .ios-menu {
     display: flex;
     background: rgba(255, 255, 255, 0.02);
@@ -173,7 +162,6 @@ main {
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 4px;
     border-radius: 14px;
-    margin-left: auto; /* Прижимает меню к правому краю */
 }
 
 .menu-item {
@@ -191,19 +179,17 @@ main {
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Apple-style hover с появлением красного прямоугольника */
 .menu-link:hover {
     background-color: var(--apple-red-hover);
     color: var(--racing-red);
 }
 
-/* iOS Выпадающий попап */
 .dropdown-popup {
     position: absolute;
     top: calc(100% + 14px);
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    width: 240px;
+    width: 220px;
     background: rgba(12, 12, 15, 0.95);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -244,10 +230,10 @@ main {
     background-color: rgba(255, 255, 255, 0.04);
     color: var(--racing-red);
 }
-/* 9. МОНУМЕНТАЛЬНЫЙ ГЛАВНЫЙ ЭКРАН (100vh) */
+/* 8. ОГРОМНЫЙ ГЛАВНЫЙ ЭКРАН (100vh) */
 .hero {
     width: 100%;
-    height: 100vh; /* Занимает ровно всю высоту экрана смартфона или ПК */
+    height: 100vh;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 40px;
@@ -262,7 +248,7 @@ main {
 }
 
 .hero-title {
-    font-size: 80px;
+    font-size: 84px;
     font-weight: 900;
     letter-spacing: -2px;
     margin-bottom: 24px;
@@ -279,7 +265,7 @@ main {
     margin-bottom: 40px;
 }
 
-/* 10. КНОПКИ С АНИМАЦИЕЙ КЛИКА */
+/* 9. СТИЛЬНЫЕ КНОПКИ ЗАЕЗДА */
 .hero-actions {
     display: flex;
     gap: 16px;
@@ -308,10 +294,6 @@ main {
     box-shadow: 0 6px 26px var(--racing-red);
 }
 
-.btn-primary:active {
-    transform: translateY(0);
-}
-
 .btn-secondary {
     background: rgba(255, 255, 255, 0.04);
     color: var(--text-white);
@@ -323,7 +305,7 @@ main {
     transform: translateY(-2px);
 }
 
-/* 11. СЕКЦИЯ СТОИМОСТИ (ОБЩЕЕ) */
+/* 10. СЕКЦИЯ СТОИМОСТИ */
 .tariffs-section {
     max-width: 1400px;
     margin: 0 auto;
@@ -341,7 +323,16 @@ main {
     letter-spacing: 0.5px;
 }
 
-/* 12. АНИМИРОВАННЫЙ ТУМБЛЕР ДНЕЙ НЕДЕЛИ */
+.section-desc-text {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin-top: -16px;
+    margin-bottom: 48px;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* 11. АНИМИРОВАННЫЙ ТУМБЛЕР ЦЕН */
 .days-switcher-container {
     display: flex;
     justify-content: center;
@@ -359,7 +350,6 @@ main {
     width: 320px;
 }
 
-/* Красная подложка, которая плавно скользит между кнопками */
 .switcher-bg {
     position: absolute;
     top: 4px;
@@ -392,10 +382,11 @@ main {
     color: var(--text-white);
 }
 
-/* 13. ПЛАНКА С ТАРИФАМИ ЦЕН */
+/* Планка с ценами */
 .prices-wrapper {
     width: 100%;
     padding: 10px 40px;
+    margin-bottom: 60px;
 }
 
 .price-row-item {
@@ -444,18 +435,18 @@ main {
     transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-/* Плавный мигающий эффект при клике на переключатель */
 .cost.price-changing {
     opacity: 0;
     transform: scale(0.95);
 }
 
-/* 14. СЕТКА КОМБО-НАБОРОВ */
+/* 12. СЕТКА КОМБО-НАБОРОВ */
 .combos-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     width: 100%;
+    margin-bottom: 40px;
 }
 
 .combo-card {
@@ -478,7 +469,6 @@ main {
     font-size: 34px;
     font-weight: 900;
     margin-bottom: 16px;
-    color: var(--text-white);
 }
 
 .combo-price span {
@@ -492,77 +482,42 @@ main {
     line-height: 1.6;
     font-size: 15px;
 }
-/* 15. СЕКЦИЯ КОНФИГУРАЦИЙ ЖЕЛЕЗА (СТРОГО ПО ТВОЕМУ ФОТО) */
-.configs-section {
-    max-width: 1400px;
-    margin: 80px auto;
-    padding: 0 40px;
-    width: 100%;
-}
-
-.top-badge {
-    display: inline-block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--racing-red);
-    font-weight: 900;
-    margin-bottom: 12px;
+/* 13. БЕСКОНЕЧНАЯ 3D-КАРУСЕЛЬ НА ПК (ФИРМЕННЫЙ СТИЛЬ) */
+.carousel-wrapper {
     position: relative;
-    padding-left: 25px;
-}
-
-.top-badge::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 15px;
-    height: 2px;
-    background: var(--racing-red);
-}
-
-.section-main-title {
-    font-size: 48px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
-}
-
-.section-main-subtitle {
-    font-size: 16px;
-    color: var(--text-gray);
-    margin-bottom: 48px;
-    max-width: 600px;
-    line-height: 1.5;
-}
-
-/* Сетка карточек железа для ПК */
-.configs-scroll-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
     width: 100%;
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Контейнер карусели с трехмерным пространством */
+.configs-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 600px; /* Достаточная высота для 3D-карточек */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px; /* Глубина 3D сцены */
+}
+
+/* Базовые стили карточек железа */
 .config-card {
+    position: absolute;
+    width: 360px;
     padding: 32px;
     display: flex;
     flex-direction: column;
-    position: relative;
-    transition: transform 0.3s ease;
-}
-
-.config-card:hover {
-    transform: translateY(-4px);
-}
-
-/* Кастомная красная рамка для ВИП тарифа как на фото */
-.config-card.featured-config {
-    border: 1px solid var(--racing-red);
-    box-shadow: 0 12px 40px var(--racing-red-glow);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.6s ease, 
+                filter 0.6s ease, 
+                border-color 0.3s ease;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .config-image-box {
@@ -601,11 +556,10 @@ main {
 .config-header h3 {
     font-size: 26px;
     font-weight: 900;
-    letter-spacing: 0.5px;
 }
 
 .config-price-tag {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 900;
 }
 
@@ -624,7 +578,6 @@ main {
     letter-spacing: 0.5px;
 }
 
-/* Список характеристик железа из макета */
 .specs-list {
     list-style: none;
     display: flex;
@@ -653,11 +606,66 @@ main {
 
 .spec-value {
     color: var(--text-white);
-    font-weight: 400;
-    text-align: right;
 }
 
-/* 16. БОЛЬШИЕ ЭКРАНЫ ДЛЯ МЕРОПРИЯТИЙ (ДРУГ НАД ДРУГОМ) */
+/* 3D-Состояния слайдов (Уменьшены, заблюрены и приглушены по бокам) */
+.config-card.active-slide {
+    transform: translate3d(0, 0, 100px) scale(1);
+    opacity: 1;
+    z-index: 5;
+    pointer-events: auto;
+    border-color: rgba(230, 34, 34, 0.4);
+    box-shadow: 0 16px 50px rgba(230, 34, 34, 0.15);
+}
+
+.config-card.prev-slide {
+    transform: translate3d(-320px, 0, -100px) scale(0.85) rotateY(15deg);
+    opacity: 0.4;
+    filter: blur(2px);
+    z-index: 3;
+}
+
+.config-card.next-slide {
+    transform: translate3d(320px, 0, -100px) scale(0.85) rotateY(-15deg);
+    opacity: 0.4;
+    filter: blur(2px);
+    z-index: 3;
+}
+
+.config-card.hidden-slide {
+    transform: translate3d(0, 0, -300px) scale(0.7);
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Стрелки навигации карусели */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    color: var(--text-white);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-nav-btn:hover {
+    background: var(--racing-red);
+    border-color: var(--racing-red);
+    box-shadow: 0 4px 15px var(--racing-red-glow);
+}
+
+.carousel-nav-btn.prev { left: 40px; }
+.carousel-nav-btn.next { right: 40px; }
+
+
+/* 14. БОЛЬШИЕ САМОСТОЯТЕЛЬНЫЕ БЛОКИ МЕРОПРИЯТИЙ */
 .large-screen-block {
     width: 100%;
     min-height: 80vh;
@@ -714,10 +722,6 @@ main {
     object-fit: cover;
 }
 
-/* Шахматный порядок переворота блоков на ПК */
-.large-screen-block.reverse .large-block-container {
-    grid-template-columns: 0.9fr 1.1fr;
-}
 .large-screen-block.reverse .large-block-container .large-block-content { order: 2; }
 .large-screen-block.reverse .large-block-container .large-block-image { order: 1; }
 
@@ -727,19 +731,14 @@ main {
 }
 
 
-/* ================= ПОЛНЫЙ МОБИЛЬНЫЙ АДАПТИВ (БЕЗ БАГОВ) ================= */
+/* ================= ПОЛНЫЙ МОБИЛЬНЫЙ АДАПТИВ ================= */
 
 @media (max-width: 1100px) {
-    .logo {
-        transform: translate(-50%, -50%) scale(3.5);
-    }
-    .hero-title { font-size: 64px; }
-    .configs-scroll-container { grid-template-columns: repeat(2, 1fr); }
-    .large-block-container,
-    .large-screen-block.reverse .large-block-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
+    .logo { transform: scale(1.6); }
+    .hero-title { font-size: 68px; }
+    .carousel-nav-btn.prev { left: 10px; }
+    .carousel-nav-btn.next { right: 10px; }
+    .large-block-container { grid-template-columns: 1fr; gap: 30px; }
     .large-screen-block.reverse .large-block-container .large-block-content { order: 1; }
     .large-screen-block.reverse .large-block-container .large-block-image { order: 2; }
     .large-screen-block { min-height: auto; margin: 60px auto; }
@@ -754,60 +753,53 @@ main {
     .header { padding: 16px 20px; }
     .header-container { display: flex; flex-direction: row; justify-content: space-between; width: 100%; }
     
-    /* Мобильный огромный логотип на первом экране */
-    .logo {
-        top: 45vh;
-        transform: translate(-50%, -50%) scale(2.8);
-    }
-
-    .header.scrolled .logo {
-        transform: translate(0, 0) scale(1);
-    }
-
-    .logo img { height: 28px; }
+    /* На мобилке стартовый логотип чуть поменьше, чтобы влезал, но оставался крупным */
+    .logo { transform: scale(1.5); }
+    .header.scrolled .logo { transform: scale(1); }
+    .logo img { height: 26px; }
+    
     .menu-link { padding: 10px 16px; font-size: 14px; }
+    .dropdown-popup { position: absolute; top: calc(100% + 10px); right: 0; left: auto; width: 200px; }
 
-    .dropdown-popup {
-        position: absolute;
-        top: calc(100% + 10px);
-        right: 0;
-        left: auto;
-        width: 200px;
-    }
-
-    .hero { padding: 0 20px; justify-content: center; }
-    .hero-content { padding: 40px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .hero-title { font-size: 48px; margin-top: 100px; }
+    .hero { padding: 0 20px; }
+    .hero-content { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .hero-title { font-size: 52px; }
     .hero-subtitle { font-size: 16px; }
     .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
     .btn { width: 100%; text-align: center; }
 
-    /* Мобильный вид цен (столбиком) */
+    /* Мобильный вид цен */
     .tariffs-section { padding: 0 20px; }
-    .prices-wrapper { padding: 10px 20px; }
+    .prices-wrapper { padding: 10px 24px; }
     .price-row-item { flex-direction: column; align-items: flex-start; gap: 20px; }
     .price-slots { width: 100%; justify-content: space-between; gap: 10px; }
     .cost { font-size: 22px; }
 
-    /* МОБИЛЬНАЯ ЛЕНТА ДЛЯ КАРТОЧЕК ЖЕЛЕЗА (НАТИВНЫЙ ТАЧ-СКРОЛЛ) */
-    .configs-section { padding: 0 0 0 20px; /* Отступ слева, чтобы карточка красиво начиналась */ }
-    .section-main-title { font-size: 32px; }
+    /* ОТКЛЮЧЕНИЕ 3D И ВКЛЮЧЕНИЕ НАЙТИВНОЙ ТАЧ-ЛЕНТЫ НА МОБИЛКАХ */
+    .carousel-nav-btn { display: none; } /* Скрываем стрелки */
+    .carousel-wrapper { margin-bottom: 40px; }
     
-    .configs-scroll-container {
+    .configs-carousel-container {
         display: flex;
-        overflow-x: auto; /* Включаем боковой скролл ТОЛЬКО для этой ленты */
+        overflow-x: auto; /* Включаем боковой скролл пальцем */
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch; /* Идеально плавный скролл на iOS */
+        -webkit-overflow-scrolling: touch;
         gap: 20px;
-        padding-right: 20px; /* Чтобы последняя карточка не упиралась в край дисплея */
-        width: 100%;
+        height: auto;
+        padding: 20px;
+        justify-content: flex-start;
+        align-items: stretch;
     }
 
     .config-card {
-        flex: 0 0 290px; /* Карточки фиксируются по ширине и не сжимаются */
+        position: static; /* Выстраиваем в обычный flex-ряд */
+        flex: 0 0 280px; /* Фиксированная ширина карточки */
         scroll-snap-align: start;
-        padding: 24px;
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        pointer-events: auto;
     }
     
     .config-image-box { height: 150px; }
