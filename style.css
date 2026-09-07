@@ -98,27 +98,27 @@ main {
     box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
 }
 
-/* 5. ПОЛНОСТЬЮ ПРОЗРАЧНАЯ ШАПКА */
+/* 5. ПОЛЬЗОВАТЕЛЬСКАЯ ПРОЗРАЧНАЯ ШАПКА */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
-    padding: 40px;
-    background: transparent; /* Никакого фона во всю ширину */
+    /* Увеличили боковые отступы до 60px, чтобы элементы красиво не липли вплотную к рамкам дисплея */
+    padding: 40px 60px; 
+    background: transparent; 
     border-bottom: none;
     transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* При скролле уменьшаем только внутренние отступы для компактности */
 .header.scrolled {
-    padding: 20px 40px;
+    padding: 20px 60px;
 }
 
 .header-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%; /* Убрали max-width: 1400px, теперь блок тянется на 100% ширины */
+    margin: 0; 
     display: flex;
     justify-content: space-between;
     align-items: center;
