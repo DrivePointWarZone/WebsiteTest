@@ -13,7 +13,7 @@
         <div class="blob blob-1"></div>
     </div>
 
-    <!-- Полностью прозрачная шапка без фоновых панелей -->
+    <!-- Полностью прозрачная шапка -->
     <header class="header" id="mainHeader">
         <div class="header-container">
             <a href="#" class="logo" id="toTopBtn">
@@ -23,9 +23,9 @@
             <nav class="ios-menu">
                 <div class="menu-item has-popup" id="tariffsMenuItem">
                     <a href="#tariffs" class="menu-link" id="tariffsToggle">Тарифы</a>
+                    <!-- ИСПРАВЛЕННЫЙ ПОПАП (СТРОГО ТВОИ КНОПКИ) -->
                     <div class="dropdown-popup">
-                        <a href="#tariffs">Стоимость</a>
-                        <a href="#configs">Что входит</a>
+                        <a href="#autosims">Автосимуляторы</a>
                         <a href="#combos">Комбо</a>
                         <a href="#birthdays">Дни Рождения</a>
                         <a href="#corporates">Корпоративы</a>
@@ -41,8 +41,13 @@
     </header>
 
     <main>
-        <!-- ОГРОМНЫЙ ГЛАВНЫЙ ЭКРАН -->
+        <!-- ОГРОМНЫЙ ГЛАВНЫЙ ЭКРАН С ВИДЕО НА ФОНЕ -->
         <section class="hero">
+            <!-- Тег для фонового видео (воспроизводится само, бесконечно, без звука) -->
+            <video autoplay loop muted playsinline class="hero-video-bg">
+                <source src="videos/bg-hero.mp4" type="video/mp4">
+            </video>
+            
             <div class="hero-content glass-panel animate-fade-in">
                 <h1 class="hero-title">DRIVE ZONE</h1>
                 <p class="hero-subtitle">
@@ -58,7 +63,7 @@
 
         <!-- СЕКЦИЯ СТОИМОСТИ С ПЕРЕКЛЮЧАТЕЛЕМ -->
         <section id="tariffs" class="tariffs-section">
-            <h2 class="section-title">Стоимость заездов</h2>
+<h2 class="section-title" id="autosims">Что входит в каждый тариф</h2>
             
             <div class="days-switcher-container">
                 <div class="days-switcher">
