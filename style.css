@@ -240,6 +240,19 @@ main {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    position: relative; /* Чтобы видео позиционировалось относительно экрана */
+    overflow: hidden;
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Видео растягивается без швов на весь экран */
+    z-index: -1; /* Уходит под стеклянную панель с текстом */
+    opacity: 0.35; /* Приглушаем яркость, чтобы текст DRIVE ZONE идеально читался */
 }
 
 .hero-content {
@@ -534,16 +547,20 @@ main {
     position: relative;
 }
 
+/* Если картинка отображается (её display не равен none), прячем заглушку */
 .config-image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: relative;
+    z-index: 2; /* Картинка встает поверх заглушки */
 }
 
 .img-placeholder-stub {
     font-size: 13px;
     color: var(--text-gray);
     position: absolute;
+    z-index: 1; /* Заглушка остается на нижнем слое */
 }
 
 .config-header {
@@ -612,6 +629,8 @@ main {
 .config-card.active-slide {
     transform: translate3d(0, 0, 100px) scale(1);
     opacity: 1;
+    filter: blur(0px) !important; /* Полностью чистая карточка без блюра */
+    -webkit-filter: blur(0px) !important;
     z-index: 5;
     pointer-events: auto;
     border-color: rgba(230, 34, 34, 0.4);
@@ -621,14 +640,14 @@ main {
 .config-card.prev-slide {
     transform: translate3d(-320px, 0, -100px) scale(0.85) rotateY(15deg);
     opacity: 0.4;
-    filter: blur(2px);
+    filter: blur(4px); /* Блюр только тут */
     z-index: 3;
 }
 
 .config-card.next-slide {
     transform: translate3d(320px, 0, -100px) scale(0.85) rotateY(-15deg);
     opacity: 0.4;
-    filter: blur(2px);
+    filter: blur(4px); /* Блюр только тут */
     z-index: 3;
 }
 
@@ -759,7 +778,19 @@ main {
     .logo img { height: 26px; }
     
     .menu-link { padding: 10px 16px; font-size: 14px; }
-    .dropdown-popup { position: absolute; top: calc(100% + 10px); right: 0; left: auto; width: 200px; }
+    .dropdown-popup {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: auto;
+        left: 50%; /* Центрируем относительно кнопки тарифов */
+        transform: translateX(-50%) translateY(10px);
+        width: 220px;
+    }
+    
+    .menu-item.active-click .dropdown-popup {
+        transform: translateX(-50%) translateY(0);
+    }
+
 
     .hero { padding: 0 20px; }
     .hero-content { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
